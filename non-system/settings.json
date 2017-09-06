@@ -1,0 +1,11 @@
+// Steven Wang
+// ~/.config/Code/User/settings.json
+
+{
+    "editor.fontSize": 16,
+    "python.pythonPath": "/usr/bin/python3",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": true,
+    "python.linting.pep8Path": "/usr/local/bin/pep8",
+    "python.linting.pep8Args": ["--ignore=E501"]
+}
