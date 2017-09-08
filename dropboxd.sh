@@ -1,1 +1,2 @@
-/home/coupe/.dropbox-dist/dropboxd
+~/.dropbox-dist/dropboxd
+# use relative path for security reason

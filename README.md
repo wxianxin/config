@@ -1,2 +1,2 @@
 My configurations.
-Don't foget hidden files.
+Don't foget the hidden files.
