@@ -15,7 +15,7 @@ set hlsearch
 
 colorscheme molokai
 
-map <F5> :w<CR>:!python "%"<CR>
+map <F5> :w<CR>:!clear;python3 "%"<CR>
 
 "Install plugin
 "mkdir ~/.vim
