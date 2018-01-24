@@ -20,9 +20,9 @@ let g:rehash256 = 1
 map <F5> :w<CR>:!clear;python3 "%"<CR>
 
 " copied from internet
-set pastetoggle=<F2>
-nnoremap <F3> :noh<CR><CR>
-nnoremap <F5> :set spell!<CR>
+nnoremap <F2> :noh<CR><CR>
+set pastetoggle=<F3>
+nnoremap <F4> :set spell!<CR>
 nnoremap <S-F5> ggvG= "shift <F5> to format code
 nmap <tab> gt
 nmap <s-tab> gT
