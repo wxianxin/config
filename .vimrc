@@ -1,4 +1,11 @@
 " 20180124
+
+" vim plugin installation
+" mkdir ~/.vim
+" cp autoload plugin blablabla to .vim
+" All set!
+
+" After installing a new help file into ~/.vim/doc, you need to rebuild the help tags file:  :helptags ~/.vim/doc
 set nocompatible
 set nu
 set cursorline
@@ -20,20 +27,20 @@ let g:rehash256 = 1
 map <F5> :w<CR>:!clear;python3 "%"<CR>
 
 " copied from internet
-nnoremap <F2> :noh<CR><CR>
-set pastetoggle=<F3>
-nnoremap <F4> :set spell!<CR>
+set pastetoggle=<F2>
+nnoremap <F3> :noh<CR><CR>
+nnoremap <F5> :set spell!<CR>
 nnoremap <S-F5> ggvG= "shift <F5> to format code
 nmap <tab> gt
 nmap <s-tab> gT
 "
 
-" vim plugin installation
-" mkdir ~/.vim
-" cp autoload plugin blablabla to .vim
-" All set!
 
-" airline installed
+" airline
+" if airline is not always showing
+set laststatus=2
+" If there is a pause when leaving insert mode:
+" set ttimeoutlen=50
 
 " syntastic
 " sudo apt install pylint3; NOT pip3 install pylint
