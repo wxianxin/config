@@ -5,6 +5,8 @@ mkdir ~/.virtualenvs
 python3 -m venv ~/.virtualenvs/django
 # avtivate  the venv
 #   . ~/.virtualenvs/django/bin/activate
+# install django in venv
+pip install django
 
 
 sudo pip3 install numpy
