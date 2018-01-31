@@ -25,7 +25,6 @@ colorscheme molokai
 let g:rehash256 = 1
 
 map <F5> :w<CR>:!clear;python3 "%"<CR>
-
 " copied from internet
 set pastetoggle=<F2>
 nnoremap <F3> :noh<CR><CR>
@@ -42,12 +41,12 @@ set laststatus=2
 " If there is a pause when leaving insert mode:
 " set ttimeoutlen=50
 
+
 " syntastic
 " sudo apt install pylint3; NOT pip3 install pylint
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -55,7 +54,11 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_compiler_options = '-std=c++11'
 
 
+" supertab installed
+
+
 "NERDTree
+
 
 " Taglist
 " let Tlist_Auto_Open = 1
