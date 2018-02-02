@@ -30,8 +30,6 @@ set pastetoggle=<F2>
 nnoremap <F3> :noh<CR><CR>
 nnoremap <F5> :set spell!<CR>
 nnoremap <S-F5> ggvG= "shift <F5> to format code
-nmap <tab> gt
-nmap <s-tab> gT
 "
 
 
