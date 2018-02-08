@@ -2,7 +2,8 @@
 // ~/.config/Code/User/settings.json
 
 {
-    "editor.fontSize": 16,
-    "python.pythonPath": "/usr/bin/python3",
-    "python.linting.pylintPath": 
+    "editor.fontSize": 15,
+    "python.pythonPath": "/Users/local/bin/python",
+    "python.linting.pylintPath": "/Users/local/bin/pylint",
+    "workbench.colorTheme": "Monokai",
 }
