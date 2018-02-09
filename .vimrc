@@ -59,7 +59,13 @@ let g:syntastic_python_pylint_args = '-d "C0103,W0621"'
 " supertab installed
 
 
-"NERDTree
+" NERDTree
+" files
+"  Autoload
+"  Plugin
+"  Doc
+"  Lib/
+"  Synatx/
 
 
 " Taglist
