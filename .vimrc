@@ -66,6 +66,7 @@ let g:syntastic_python_pylint_args = '-d "C0103,W0621"'
 "  Doc
 "  Lib/
 "  Synatx/
+"  nerdtree_plugin/   "NOT COPIED
 
 
 " Taglist
