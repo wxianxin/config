@@ -6,31 +6,32 @@
 " All set!
 
 " After installing a new help file into ~/.vim/doc, you need to rebuild the help tags file:  :helptags ~/.vim/doc
+set cursorline
 set nocompatible
 set nu
-set cursorline
-filetype indent on
 set smartindent
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set showmatch
 set hlsearch
-syntax on
-set softtabstop=4
 set ignorecase
 set smartcase
-set hlsearch
+filetype indent on
+syntax on
+
+set foldmethod=syntax
+let r_syntax_folding = 1
 
 colorscheme molokai
 let g:rehash256 = 1
 
 map <F5> :w<CR>:!clear;python3 "%"<CR>
-" copied from internet
-set pastetoggle=<F2>
-nnoremap <F3> :noh<CR><CR>
+nnoremap <F2> :noh<CR><CR>
+set pastetoggle=<F3>
 nnoremap <F5> :set spell!<CR>
 nnoremap <S-F5> ggvG= "shift <F5> to format code
-"
+
 
 
 " airline
