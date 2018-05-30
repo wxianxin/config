@@ -21,7 +21,7 @@ sudo apt autoremove
 sudo apt autoclean
 sudo reboot
 
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+# cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
 # /etc/rc.local
 # echo 10 > /sys/class/backlight/intel_backlight/brightness
