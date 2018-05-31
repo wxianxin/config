@@ -2,6 +2,9 @@
 // ~/.config/Code/User/settings.json
 
 {
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "git.ignoreMissingGitWarning": true,
     "editor.fontSize": 15,
     "python.pythonPath": "/Users/local/bin/python",
     "python.linting.pylintPath": "/Users/local/bin/pylint",
