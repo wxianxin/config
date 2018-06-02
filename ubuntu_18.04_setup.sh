@@ -3,15 +3,12 @@ echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
 
 
-# sudo apt purge firefox* 
 # sudo apt purge imagemagick*
 sudo apt purge imagemagick*
 
 sudo apt install vim
-# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# sudo dpkg -i --force-all google-chrome-stable_current_amd64.deb
-#sudo apt install openssh-server
-#sudo apt install transmission-daemon
+# sudo apt install openssh-server
+# sudo apt install transmission-daemon
 # sudo apt-get install mplayer
 # sudo apt-get install fcitx-googlepinyin
 
