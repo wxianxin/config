@@ -1,10 +1,10 @@
 echo "########">> ~/.bashrc
 echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
+echo "source ~/.venvs/p/bin/activate" >> ~/.bashrc
 
 
 # sudo apt purge imagemagick*
-sudo apt purge imagemagick*
 
 sudo apt install vim
 # sudo apt install openssh-server
