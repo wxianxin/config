@@ -1,6 +1,6 @@
 # sudo apt install qemu-kvm libvirt-bin virt-manager
 
-# qemu-img create -f qcow2 /home/coupe/L/vm/kvm-win10.qcow2 40G
+# qemu-img create -f qcow2 /home/xx/L/vm/kvm-win10.qcow2 40G
 
 virt-install \
     --name=win10 \
@@ -9,8 +9,8 @@ virt-install \
     --vcpus=4 \
     --os-type=windows \
     --os-variant=win10 \
-    --disk /home/coupe/L/vm/kvm-win10.qcow2 \
-    --disk /home/coupe/L/Downloads/Windows.iso,device=cdrom,bus=ide \
+    --disk /home/xx/L/vm/kvm-win10.qcow2 \
+    --disk /home/xx/L/Downloads/Windows.iso,device=cdrom,bus=ide \
 
     # --disk /usr/share/virtio-win/virtio-win.iso,device=cdrom,bus=ide \
     # --network bridge=virbr0 \
