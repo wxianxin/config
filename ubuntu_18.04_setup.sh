@@ -1,6 +1,7 @@
 echo "########">> ~/.bashrc
 echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
+echo "alias tms='transmission-remote --auth transmission:password'" ~/.bashrc
 echo "source ~/.venvs/p/bin/activate" >> ~/.bashrc
 
 
@@ -10,6 +11,7 @@ sudo apt install vim
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
 # sudo apt-get install mplayer
+# sudo apt-get install ibus-pinyin
 # sudo apt-get install fcitx-googlepinyin
 
 sudo apt update
@@ -22,3 +24,4 @@ sudo reboot
 
 # /etc/rc.local
 # echo 10 > /sys/class/backlight/intel_backlight/brightness
+# sudo mount /dev/nvme0n1p5 /home/coupe/L/

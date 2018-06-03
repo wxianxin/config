@@ -1,12 +1,12 @@
 # setup venv                                                                                         
 # create folder that hold all your venvs
-mkdir ~/.virtualenvs
+mkdir ~/.venvs
 # create folder for a specific project
-python3 -m venv ~/.virtualenvs/django
+python3 -m venv ~/.venvs/django
 # avtivate  the venv
 #   . ~/.virtualenvs/django/bin/activate
 # install django in venv
-pip install django
+pip3 install django
 
 
 sudo pip3 install numpy
