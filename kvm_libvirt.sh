@@ -1,6 +1,9 @@
 # TODO GPU passthrough
 # TODO Duel Boot
 
+
+################################################################################
+################################################################################
 # sudo apt install qemu-kvm libvirt-bin virt-manager
 
 # qemu-img create -f qcow2 /home/xx/L/vm/kvm-win10.qcow2 40G
