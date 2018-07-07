@@ -53,10 +53,10 @@ from ycm.client.messages_request import MessagesPoll
 
 
 def PatchNoProxy():
-  current_value = os.environ.get('no_proxy', '')
+  current_value = os.environ.get( 'no_proxy', '' )
   additions = '127.0.0.1,localhost'
-  os.environ['no_proxy'] = ( additions if not current_value
-                             else current_value + ',' + additions )
+  os.environ[ 'no_proxy' ] = ( additions if not current_value
+                               else current_value + ',' + additions )
 
 
 # We need this so that Requests doesn't end up using the local HTTP proxy when
@@ -385,7 +385,7 @@ class YouCompleteMe( object ):
     bufnr = vimsupport.GetBufferNumberForFilename( filepath )
     if bufnr in self._buffers and vimsupport.BufferIsVisible( bufnr ):
       # Note: We only update location lists, etc. for visible buffers, because
-      # otherwise we defualt to using the curren location list and the results
+      # otherwise we default to using the current location list and the results
       # are that non-visible buffer errors clobber visible ones.
       self._buffers[ bufnr ].UpdateWithNewDiagnostics( diagnostics )
     else:
@@ -660,7 +660,7 @@ class YouCompleteMe( object ):
     detailed_diagnostic = BaseRequest().PostDataToHandler(
         BuildRequestData(), 'detailed_diagnostic' )
 
-    if 'message' in detailed_diagnostic:
+    if detailed_diagnostic and 'message' in detailed_diagnostic:
       vimsupport.PostVimMessage( detailed_diagnostic[ 'message' ],
                                  warning = False )
 

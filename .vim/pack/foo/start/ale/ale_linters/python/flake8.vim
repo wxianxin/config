@@ -1,13 +1,8 @@
 " Author: w0rp <devw0rp@gmail.com>
 " Description: flake8 for python files
 
-" remove in 2.0
-" Support an old setting as a fallback.
-let s:deprecation_warning_echoed = 0
-let s:default_options = get(g:, 'ale_python_flake8_args', '')
-
 call ale#Set('python_flake8_executable', 'flake8')
-call ale#Set('python_flake8_options', s:default_options)
+call ale#Set('python_flake8_options', '')
 call ale#Set('python_flake8_use_global', get(g:, 'ale_use_global_executables', 0))
 call ale#Set('python_flake8_change_directory', 1)
 
@@ -40,17 +35,15 @@ function! ale_linters#python#flake8#VersionCheck(buffer) abort
 endfunction
 
 function! ale_linters#python#flake8#GetCommand(buffer, version_output) abort
-    " remove in 2.0
-    if exists('g:ale_python_flake8_args') && !s:deprecation_warning_echoed
-        execute 'echom ''Rename your g:ale_python_flake8_args setting to g:ale_python_flake8_options instead. Support for this will removed in ALE 2.0.'''
-        let s:deprecation_warning_echoed = 1
-    endif
-
     let l:cd_string = ale#Var(a:buffer, 'python_flake8_change_directory')
     \   ? ale#path#BufferCdString(a:buffer)
     \   : ''
     let l:executable = ale_linters#python#flake8#GetExecutable(a:buffer)
     let l:version = ale#semver#GetVersion(l:executable, a:version_output)
+
+    let l:exec_args = l:executable =~? 'pipenv$'
+    \   ? ' run flake8'
+    \   : ''
 
     " Only include the --stdin-display-name argument if we can parse the
     " flake8 version, and it is recent enough to support it.
@@ -61,7 +54,7 @@ function! ale_linters#python#flake8#GetCommand(buffer, version_output) abort
     let l:options = ale#Var(a:buffer, 'python_flake8_options')
 
     return l:cd_string
-    \   . ale#Escape(l:executable)
+    \   . ale#Escape(l:executable) . l:exec_args
     \   . (!empty(l:options) ? ' ' . l:options : '')
     \   . ' --format=default'
     \   . l:display_name_args . ' -'

@@ -22,6 +22,11 @@ let s:default_registry = {
 \       'suggested_filetypes': ['python'],
 \       'description': 'Fix PEP8 issues with black.',
 \   },
+\   'tidy': {
+\       'function': 'ale#fixers#tidy#Fix',
+\       'suggested_filetypes': ['html'],
+\       'description': 'Fix HTML files with tidy.',
+\   },
 \   'prettier_standard': {
 \       'function': 'ale#fixers#prettier_standard#Fix',
 \       'suggested_filetypes': ['javascript'],
@@ -51,7 +56,7 @@ let s:default_registry = {
 \   },
 \   'prettier': {
 \       'function': 'ale#fixers#prettier#Fix',
-\       'suggested_filetypes': ['javascript', 'typescript', 'json', 'css', 'scss', 'less', 'markdown', 'graphql', 'vue'],
+\       'suggested_filetypes': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'json5', 'graphql', 'markdown', 'vue'],
 \       'description': 'Apply prettier to a file.',
 \   },
 \   'prettier_eslint': {
@@ -94,6 +99,11 @@ let s:default_registry = {
 \       'function': 'ale#fixers#rufo#Fix',
 \       'suggested_filetypes': ['ruby'],
 \       'description': 'Fix ruby files with rufo',
+\   },
+\   'scalafmt': {
+\       'function': 'ale#fixers#scalafmt#Fix',
+\       'suggested_filetypes': ['scala'],
+\       'description': 'Fix Scala files using scalafmt',
 \   },
 \   'standard': {
 \       'function': 'ale#fixers#standard#Fix',
@@ -194,6 +204,16 @@ let s:default_registry = {
 \       'function': 'ale#fixers#xo#Fix',
 \       'suggested_filetypes': ['javascript'],
 \       'description': 'Fix JavaScript files using xo --fix.',
+\   },
+\   'qmlfmt': {
+\       'function': 'ale#fixers#qmlfmt#Fix',
+\       'suggested_filetypes': ['qml'],
+\       'description': 'Fix QML files with qmlfmt.',
+\   },
+\   'dartfmt': {
+\       'function': 'ale#fixers#dartfmt#Fix',
+\       'suggested_filetypes': ['dart'],
+\       'description': 'Fix Dart files with dartfmt.',
 \   },
 \}
 
@@ -335,8 +355,7 @@ function! ale#fix#registry#CompleteFixers(ArgLead, CmdLine, CursorPos) abort
     return filter(ale#fix#registry#GetApplicableFixers(&filetype), 'v:val =~? a:ArgLead')
 endfunction
 
-" Suggest functions to use from the registry.
-function! ale#fix#registry#Suggest(filetype) abort
+function! ale#fix#registry#SuggestedFixers(filetype) abort
     let l:type_list = split(a:filetype, '\.')
     let l:filetype_fixer_list = []
 
@@ -361,6 +380,15 @@ function! ale#fix#registry#Suggest(filetype) abort
             \)
         endif
     endfor
+
+    return [l:filetype_fixer_list, l:generic_fixer_list]
+endfunction
+
+" Suggest functions to use from the registry.
+function! ale#fix#registry#Suggest(filetype) abort
+    let l:suggested = ale#fix#registry#SuggestedFixers(a:filetype)
+    let l:filetype_fixer_list = l:suggested[0]
+    let l:generic_fixer_list = l:suggested[1]
 
     let l:filetype_fixer_header = !empty(l:filetype_fixer_list)
     \   ? ['Try the following fixers appropriate for the filetype:', '']

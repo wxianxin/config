@@ -15,6 +15,7 @@ let s:default_ale_linter_aliases = {
 \   'csh': 'sh',
 \   'plaintex': 'tex',
 \   'systemverilog': 'verilog',
+\   'verilog_systemverilog': ['verilog_systemverilog', 'verilog'],
 \   'vimwiki': 'markdown',
 \   'zsh': 'sh',
 \}
@@ -227,6 +228,21 @@ function! ale#linter#PreProcess(linter) abort
                 throw '`completion_filter` must be a callback'
             endif
         endif
+
+        if has_key(a:linter, 'initialization_options_callback')
+            if has_key(a:linter, 'initialization_options')
+                throw 'Only one of `initialization_options` or '
+                \   . '`initialization_options_callback` should be set'
+            endif
+
+            let l:obj.initialization_options_callback = a:linter.initialization_options_callback
+
+            if !s:IsCallback(l:obj.initialization_options_callback)
+                throw '`initialization_options_callback` must be a callback if defined'
+            endif
+        elseif has_key(a:linter, 'initialization_options')
+            let l:obj.initialization_options = a:linter.initialization_options
+        endif
     endif
 
     let l:obj.output_stream = get(a:linter, 'output_stream', 'stdout')
@@ -435,73 +451,4 @@ function! ale#linter#GetAddress(buffer, linter) abort
     return has_key(a:linter, 'address_callback')
     \   ? ale#util#GetFunction(a:linter.address_callback)(a:buffer)
     \   : a:linter.address
-endfunction
-
-" Given a buffer, an LSP linter, and a callback to register for handling
-" messages, start up an LSP linter and get ready to receive errors or
-" completions.
-function! ale#linter#StartLSP(buffer, linter, callback) abort
-    let l:command = ''
-    let l:address = ''
-    let l:root = ale#util#GetFunction(a:linter.project_root_callback)(a:buffer)
-
-    if empty(l:root) && a:linter.lsp isnot# 'tsserver'
-        " If there's no project root, then we can't check files with LSP,
-        " unless we are using tsserver, which doesn't use project roots.
-        return {}
-    endif
-
-    if a:linter.lsp is# 'socket'
-        let l:address = ale#linter#GetAddress(a:buffer, a:linter)
-        let l:conn_id = ale#lsp#ConnectToAddress(
-        \   l:address,
-        \   l:root,
-        \   a:callback,
-        \)
-    else
-        let l:executable = ale#linter#GetExecutable(a:buffer, a:linter)
-
-        if !executable(l:executable)
-            return {}
-        endif
-
-        let l:command = ale#job#PrepareCommand(
-        \   a:buffer,
-        \   ale#linter#GetCommand(a:buffer, a:linter),
-        \)
-        let l:conn_id = ale#lsp#StartProgram(
-        \   l:executable,
-        \   l:command,
-        \   l:root,
-        \   a:callback,
-        \)
-    endif
-
-    let l:language_id = ale#util#GetFunction(a:linter.language_callback)(a:buffer)
-
-    if !l:conn_id
-        if g:ale_history_enabled && !empty(l:command)
-            call ale#history#Add(a:buffer, 'failed', l:conn_id, l:command)
-        endif
-
-        return {}
-    endif
-
-    if ale#lsp#OpenDocumentIfNeeded(l:conn_id, a:buffer, l:root, l:language_id)
-        if g:ale_history_enabled && !empty(l:command)
-            call ale#history#Add(a:buffer, 'started', l:conn_id, l:command)
-        endif
-    endif
-
-    " The change message needs to be sent for tsserver before doing anything.
-    if a:linter.lsp is# 'tsserver'
-        call ale#lsp#Send(l:conn_id, ale#lsp#tsserver_message#Change(a:buffer))
-    endif
-
-    return {
-    \   'connection_id': l:conn_id,
-    \   'command': l:command,
-    \   'project_root': l:root,
-    \   'language_id': l:language_id,
-    \}
 endfunction

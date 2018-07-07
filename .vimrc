@@ -40,12 +40,17 @@ let r_syntax_folding = 1
 colorscheme molokai
 let g:rehash256 = 1
 
-map <F5> :w<CR>:!clear;python3 "%"<CR>
-nnoremap <F2> :noh<CR><CR>
-set pastetoggle=<F3>
-nnoremap <F4> :set spell!<CR>
-nnoremap <S-F4> ggvG= "shift <F5> to format code
+nnoremap <F2> :set nu! <CR>
+nnoremap <F3> :ALEToggle <CR>
+set pastetoggle=<F4>
+nnoremap <F5> :w<CR> :!clear;python3 "%"<CR>
+nnoremap <S-F5> ggvG= <CR>
+"shift <F5> to auto indent code
+nnoremap <F6> :set spell!<CR>
+nnoremap <F10> :lnext<CR>
+nnoremap <c-l> :noh<CR>
 
+au FileType python setlocal formatprg=autopep8\ -
 
 " airline
 " if airline is not always showing
@@ -56,16 +61,16 @@ nnoremap <S-F4> ggvG= "shift <F5> to format code
 
 " ale
 let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = ''
 let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 8
-let g:ale_python_pylint_options = '-d "C0103,W0621"'
+let g:ale_linters = { 'python': ['flake8']}
+let g:ale_python_flake8_options = '--ignore=C0103,W0621,E501,E303'
+let g:ale_sign_warning = '♻️'
+let g:ale_sign_error = '❌'
+" let g:ale_python_pylint_options = '-d "C0103,W0621"'
 " disable
 " C0103, variable naming error
 " W0621, redefine outer scope
-let g:ale_sign_warning = '⚕️'
-" ⚕️🚧
-let g:ale_sign_error = '❌'
 " hi link ALEWarningSign WarningMsg
 hi ALEWarningSign ctermfg=11 ctermbg=235 guifg=#ED6237 guibg=#232526
 " hi link ALEErrorSign Error
