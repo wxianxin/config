@@ -1,4 +1,4 @@
-" 20180619
+" 20180915
 
 " vim plugin installation
 " mkdir ~/.vim/pack/foo/start ~/.vim/pack/foo/opt
@@ -42,11 +42,13 @@ let g:rehash256 = 1
 
 nnoremap <F2> :set nu! <CR>
 nnoremap <F3> :ALEToggle <CR>
-set pastetoggle=<F4>
+nnoremap <F4> :GitGutterToggle <CR>
 nnoremap <F5> :w<CR> :!clear;python3 "%"<CR>
-nnoremap <S-F5> ggvG= <CR>
-"shift <F5> to auto indent code
+nnoremap <S-F5> :w<CR> :!clear;python3 -i "%"<CR>
+nnoremap <F6> ggvG= <CR>
+" <F6> to auto indent code
 nnoremap <F6> :set spell!<CR>
+set pastetoggle=<F7>
 nnoremap <F10> :lnext<CR>
 nnoremap <c-l> :noh<CR>
 
