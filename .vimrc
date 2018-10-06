@@ -1,4 +1,6 @@
-" 20180915
+" 20181005
+
+" TODO <leader>
 
 " vim plugin installation
 " mkdir ~/.vim/pack/foo/start ~/.vim/pack/foo/opt
@@ -51,6 +53,7 @@ nnoremap <F6> :set spell!<CR>
 set pastetoggle=<F7>
 nnoremap <F10> :lnext<CR>
 nnoremap <c-l> :noh<CR>
+nnoremap <C-_> 0i#<Space><Esc>
 
 au FileType python setlocal formatprg=autopep8\ -
 
