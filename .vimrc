@@ -33,6 +33,7 @@ set showmatch
 set hlsearch
 set ignorecase
 set smartcase
+set colorcolumn=80,100
 filetype indent on
 syntax on
 
