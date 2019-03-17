@@ -2,7 +2,7 @@ echo "########">> ~/.bashrc
 echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
 echo "alias dropbox=~/.dropbox-dist/dropboxd">> ~/.bashrc
-echo "alias tms='transmission-remote --auth transmission:password'" ~/.bashrc
+echo "alias tms='transmission-remote --auth transmission:password'">> ~/.bashrc
 echo "source ~/.venvs/p/bin/activate" >> ~/.bashrc
 
 ################################################################################
