@@ -32,7 +32,14 @@ sudo apt autoclean
 
 # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
+########################################################################################
+# nvidia
+ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
+
+
 ################################################################################
+# T420
 # /etc/rc.local
 # echo 10 > /sys/class/backlight/intel_backlight/brightness
 # sudo mount /dev/nvme0n1p5 /home/coupe/L/
