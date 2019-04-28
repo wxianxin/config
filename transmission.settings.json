@@ -1,9 +1,9 @@
 {
     "cache-size-mb": 16,
-    "download-dir": "~/L",
+    "download-dir": "~/L/Downloads",
     "ratio-limit": 0,
     "ratio-limit-enabled": true,
-    "rpc-password": "asdf",
+    "rpc-password": "password",
     "speed-limit-up": 400,
     "speed-limit-up-enabled": true,
 }

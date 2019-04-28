@@ -3,7 +3,7 @@ echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
 echo "alias dropbox=~/.dropbox-dist/dropboxd">> ~/.bashrc
 echo "alias tms='transmission-remote --auth transmission:password'">> ~/.bashrc
-echo "source ~/.venvs/p/bin/activate" >> ~/.bashrc
+echo "source ~/.venv/p/bin/activate" >> ~/.bashrc
 
 ################################################################################
 # # python setup
