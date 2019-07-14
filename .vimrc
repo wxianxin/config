@@ -1,4 +1,4 @@
-" 20181005
+" 20190713
 
 " TODO <leader>
 
@@ -22,6 +22,7 @@
 "   supertab
 "   syntastic
 
+set showcmd
 set cursorline
 set nocompatible
 set nu
@@ -38,7 +39,7 @@ filetype indent on
 syntax on
 
 set foldmethod=syntax
-let r_syntax_folding = 1
+"let r_syntax_folding = 1
 
 colorscheme molokai
 let g:rehash256 = 1
@@ -46,17 +47,26 @@ let g:rehash256 = 1
 nnoremap <F2> :set nu! <CR>
 nnoremap <F3> :ALEToggle <CR>
 nnoremap <F4> :GitGutterToggle <CR>
+nnoremap <S-F4> :GitGutterLineHighlightsToggle <CR>
 nnoremap <F5> :w<CR> :!clear;python3 "%"<CR>
 nnoremap <S-F5> :w<CR> :!clear;python3 -i "%"<CR>
 nnoremap <F6> ggvG= <CR>
 " <F6> to auto indent code
 nnoremap <F6> :set spell!<CR>
 set pastetoggle=<F7>
+nnoremap <F9> :lprev<CR>
 nnoremap <F10> :lnext<CR>
-nnoremap <c-l> :noh<CR>
+nnoremap <C-l> :noh<CR>
 nnoremap <C-_> 0i#<Space><Esc>
 
-au FileType python setlocal formatprg=autopep8\ -
+" switch tabs
+nnoremap <C-tab>   :tabnext<CR>
+inoremap <C-tab>   <Esc>:tabnext<CR>
+nnoremap <C-S-tab> :tabprevious<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>
+" the 4 lines above does not work for Mac
+
+
 
 " airline
 " if airline is not always showing
@@ -70,7 +80,7 @@ let g:ale_open_list = 1
 let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 8
 let g:ale_linters = { 'python': ['flake8']}
-let g:ale_python_flake8_options = '--ignore=C0103,W0621,E501,E303'
+let g:ale_python_flake8_options = '--ignore=C0103,W0621,E501,E303,W503,E203'
 let g:ale_sign_warning = '♻️'
 let g:ale_sign_error = '❌'
 " let g:ale_python_pylint_options = '-d "C0103,W0621"'
