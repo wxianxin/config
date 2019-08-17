@@ -5,5 +5,5 @@
     "ratio-limit-enabled": true,
     "rpc-password": "password",
     "speed-limit-up": 400,
-    "speed-limit-up-enabled": true,
+    "speed-limit-up-enabled": true
 }

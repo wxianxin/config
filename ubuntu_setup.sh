@@ -35,7 +35,7 @@ sudo apt autoclean
 ########################################################################################
 # nvidia
 ubuntu-drivers devices
-sudo ubuntu-drivers autoinstall
+# sudo ubuntu-drivers autoinstall
 
 
 ################################################################################
