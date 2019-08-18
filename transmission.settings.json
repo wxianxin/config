@@ -1,6 +1,6 @@
 {
     "cache-size-mb": 16,
-    "download-dir": "~/L/Downloads",
+    "download-dir": "~/L/Downloads",    # needs to be absolute path
     "ratio-limit": 0,
     "ratio-limit-enabled": true,
     "rpc-password": "password",
