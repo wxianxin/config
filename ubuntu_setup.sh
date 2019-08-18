@@ -5,15 +5,19 @@ echo "alias dropbox=~/.dropbox-dist/dropboxd">> ~/.bashrc
 echo "alias tms='transmission-remote --auth transmission:password'">> ~/.bashrc
 echo "source ~/.venv/p/bin/activate" >> ~/.bashrc
 
+cp -r ./.vim ~
+cp ./.toprc ~
+cp ./.vimrc ~
+
 ################################################################################
-# # python setup
-# sudo apt install python3-venv
-# mkdir ~/.venvs
-# python -m venv ~/.venvs/p
-# source ~/.venvs/p/bin/activate
-# python -m pip install numpy
-# python -m pip install pandas
-# python -m pip install scipy
+# python setup
+sudo apt install python3-venv
+mkdir ~/.venvs
+python -m venv ~/.venvs/p
+source ~/.venvs/p/bin/activate
+python -m pip install numpy
+python -m pip install pandas
+python -m pip install scipy
 ################################################################################
 
 sudo apt install vim
@@ -36,7 +40,6 @@ sudo apt autoclean
 # nvidia
 ubuntu-drivers devices
 # sudo ubuntu-drivers autoinstall
-
 
 ################################################################################
 # T420
