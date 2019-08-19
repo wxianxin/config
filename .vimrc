@@ -1,4 +1,5 @@
-" 20190713
+" .vimrc 20190818
+" .vim/ 20190818
 
 " TODO <leader>
 
@@ -7,6 +8,7 @@
 " put plugin root folder into the directories
 " All set!
 " After installing a new help file into ~/.vim/doc, you need to rebuild the help tags file:  :helptags ~/.vim/doc
+" NOTE: For ale and flake8 to work properly, install using `apt`, don't use `pip install`
 
 " mkdir .vim/colors
 
@@ -17,6 +19,8 @@
 "   vim-fugitive
 "   nerdtree
 "   Youcompleteme
+"   black
+"   vim-gitgutter
 
 "~/.vim/pack/foo/opt
 "   supertab
@@ -34,7 +38,7 @@ set showmatch
 set hlsearch
 set ignorecase
 set smartcase
-set colorcolumn=80,88
+set colorcolumn=88
 filetype indent on
 syntax on
 
@@ -81,7 +85,7 @@ let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 8
 let g:ale_linters = { 'python': ['flake8']}
 let g:ale_python_flake8_options = '--ignore=C0103,W0621,E501,E303,W503,E203'
-let g:ale_sign_warning = '♻️'
+let g:ale_sign_warning = '⚠️'
 let g:ale_sign_error = '❌'
 " let g:ale_python_pylint_options = '-d "C0103,W0621"'
 " disable

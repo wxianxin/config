@@ -12,12 +12,14 @@ cp ./.vimrc ~
 ################################################################################
 # python setup
 sudo apt install python3-venv
-mkdir ~/.venvs
-python -m venv ~/.venvs/p
-source ~/.venvs/p/bin/activate
+mkdir ~/.venv
+python -m venv ~/.venv/p
+source ~/.venv/p/bin/activate
 python -m pip install numpy
 python -m pip install pandas
 python -m pip install scipy
+python -m pip install black
+python -m pip install flake8 
 ################################################################################
 
 sudo apt install vim
