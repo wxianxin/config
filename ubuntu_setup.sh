@@ -21,8 +21,8 @@ python -m pip install scipy
 python -m pip install black
 python -m pip install flake8 
 ################################################################################
-
 sudo apt install vim
+sudo apt install git
 # sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
@@ -43,6 +43,13 @@ sudo apt autoclean
 ubuntu-drivers devices
 # sudo ubuntu-drivers autoinstall
 
+################################################################################
+# git
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
+################################################################################
+################################################################################
 ################################################################################
 # T420
 # /etc/rc.local
