@@ -9,20 +9,17 @@ cp -r ./.vim ~
 cp ./.toprc ~
 cp ./.vimrc ~
 
+source ~/.bashrc
 ################################################################################
 # python setup
 sudo apt install python3-venv
 mkdir ~/.venv
 python -m venv ~/.venv/p
 source ~/.venv/p/bin/activate
-python -m pip install numpy
-python -m pip install pandas
-python -m pip install scipy
-python -m pip install black
-python -m pip install flake8 
+python -m pip install numpy pandas scipy black flake8 
 ################################################################################
-sudo apt install vim
 sudo apt install git
+sudo apt install vim
 # sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
