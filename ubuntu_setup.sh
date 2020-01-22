@@ -14,9 +14,9 @@ source ~/.bashrc
 # python setup
 sudo apt install python3-venv
 mkdir ~/.venv
-python -m venv ~/.venv/p
+python3 -m venv ~/.venv/p
 source ~/.venv/p/bin/activate
-python -m pip install numpy pandas scipy black flake8 
+python3 -m pip install numpy pandas scipy black flake8 
 ################################################################################
 sudo apt install git
 sudo apt install vim
