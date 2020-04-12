@@ -1,6 +1,4 @@
-# The existence of this script is because transmission always loads setting in /etc/... during boot. This script refreshes its setting from the user space.
-
-sudo mount /dev/nvme0n1p1 ~/L
+sudo mount /dev/nvme0n1p5 ~/L
+# restart the service because it won't read user specific settings right after boot
 sudo service transmission-daemon stop
 transmission-daemon
-

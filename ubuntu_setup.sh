@@ -13,13 +13,14 @@ source ~/.bashrc
 ################################################################################
 # python setup
 sudo apt install python3-venv
-mkdir ~/.venv
-python3 -m venv ~/.venv/p
-source ~/.venv/p/bin/activate
-python3 -m pip install numpy pandas scipy black flake8 
+# mkdir ~/.venv
+# python3 -m venv ~/.venv/p
+# source ~/.venv/p/bin/activate
+# python3 -m pip install numpy pandas scipy black flake8 
 ################################################################################
 sudo apt install git
 sudo apt install vim
+sudo apt install nfs-kernel-server # then specify which path to share in /etc/exports; END
 # sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
