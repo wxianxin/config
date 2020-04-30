@@ -20,7 +20,7 @@ sudo apt install python3-venv
 ################################################################################
 sudo apt install git
 sudo apt install vim
-sudo apt install nfs-kernel-server # then specify which path to share in /etc/exports; END
+# sudo apt install nfs-kernel-server # then specify which path to share in /etc/exports; END
 # sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
