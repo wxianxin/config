@@ -1,5 +1,5 @@
 {
-    "cache-size-mb": 16,
+    "cache-size-mb": 128,
     "download-dir": "~/L/Downloads",    # needs to be absolute path
     "ratio-limit": 0,
     "ratio-limit-enabled": true,
