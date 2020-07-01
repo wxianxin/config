@@ -5,9 +5,9 @@ echo "alias dropbox=~/.dropbox-dist/dropboxd">> ~/.bashrc
 echo "alias tms='transmission-remote --auth transmission:password'" >> ~/.bashrc
 echo "source ~/.venvs/p/bin/activate" >> ~/.bashrc
 
-cp -r ~/config/.vim ..
-cp ~/config/.vimrc ..
-cp ~/config/.toprc ..
+cp -r ~/config/.vim ~/
+cp ~/config/.vimrc ~/
+cp ~/config/.toprc ~/
 
 sudo dnf install vim
 # sudo dnf install mplayer
