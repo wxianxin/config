@@ -1,3 +1,6 @@
+#!/bin/bash
+# DO NOT sudo execute this script
+
 echo "########">> ~/.bashrc
 echo "# Steven">> ~/.bashrc
 echo "alias python="python3"">> ~/.bashrc
