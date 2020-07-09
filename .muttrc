@@ -17,10 +17,10 @@ set ssl_starttls=yes
 
 set spoolfile = "+INBOX"
 # Gmail automatically saves sent e-mail to +[Gmail]/Sent(we do not want duplicates). 
-set record = "+[Gmail]/Sent" # Whenever a mail is sent, it will be saved here
-set trash = "+[Gmail]/Trash" # Whenever a mail is deleted, it will be saved here
+set record = "+[Gmail]/Sent Mail" # Whenever a mail is sent, it will be saved here
 set postponed = "+[Gmail]/Drafts" # draft folder
-mailboxes =INBOX =Drafts =Trash =Sent
+set trash = "+[Gmail]/Trash" # Whenever a mail is deleted, it will be saved here
+mailboxes =INBOX =[Gmail]/Sent\ Mail =[Gmail]/Drafts =[Gmail]/Trash
 
 bind index,pager B sidebar-toggle-visible
 bind index,pager \Cj sidebar-next
