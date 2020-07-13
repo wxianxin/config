@@ -15,10 +15,11 @@ cp ~/config/.vimrc ~
 ################################################################################
 # python setup
 sudo apt install python3-venv
-# mkdir ~/.venv
-# python3 -m venv ~/.venv/p
-# source ~/.venv/p/bin/activate
-# python3 -m pip install numpy pandas scipy black flake8 
+mkdir ~/.venv
+python3 -m venv ~/.venv/p
+source ~/.venv/p/bin/activate
+python3 -m pip install numpy pandas scipy black
+sudo apt install flake8 # for vim ale
 ################################################################################
 sudo apt install git
 sudo apt install vim
