@@ -1,5 +1,5 @@
-" .vimrc 20190818
-" .vim/ 20190818
+" .vimrc 20200713
+" .vim/ 20200713
 
 " TODO <leader>
 
@@ -15,12 +15,12 @@
 " plugin list:
 "~/.vim/pack/foo/start
 "   ale
+"   black
+"   nerdtree
 "   vim-airline
 "   vim-fugitive
-"   nerdtree
-"   Youcompleteme
-"   black
 "   vim-gitgutter
+"   Youcompleteme
 
 "~/.vim/pack/foo/opt
 "   supertab
