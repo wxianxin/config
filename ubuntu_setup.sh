@@ -1,11 +1,12 @@
 #!/bin/bash
 # DO NOT sudo execute this script
 
-echo "########">> ~/.bashrc
-echo "# Steven">> ~/.bashrc
-echo "alias python="python3"">> ~/.bashrc
-echo "alias dropbox=~/.dropbox-dist/dropboxd">> ~/.bashrc
-echo "alias tms='transmission-remote --auth transmission:password'">> ~/.bashrc
+echo "########" >> ~/.bashrc
+echo "# Steven" >> ~/.bashrc
+echo "alias python="python3"" >> ~/.bashrc
+echo "alias weather='curl v2.wttr.in/newyork'" >> ~/.bashrc
+echo "alias dropbox=~/.dropbox-dist/dropboxd" >> ~/.bashrc
+echo "alias tms='transmission-remote --auth transmission:password'" >> ~/.bashrc
 echo "source ~/.venv/p/bin/activate" >> ~/.bashrc
 source ~/.bashrc
 
@@ -28,8 +29,8 @@ sudo apt install gnome-tweak-tool
 # sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
-# sudo apt install ibus-pinyin
-# sudo apt install fcitx-googlepinyin
+sudo apt install ibus-libpinyin 
+sudo apt install ibus-clutter
 
 sudo apt update
 sudo apt install -f
