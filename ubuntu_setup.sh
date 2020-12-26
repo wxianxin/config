@@ -26,9 +26,10 @@ sudo apt install git
 sudo apt install vim
 sudo apt install gnome-tweak-tool
 # sudo apt install nfs-kernel-server # then specify which path to share in /etc/exports; END
-# sudo apt install mplayer
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
+# sudo apt install mpv
+# sudo apt install libvdpau-va-gl1
 sudo apt install ibus-libpinyin 
 sudo apt install ibus-clutter
 
