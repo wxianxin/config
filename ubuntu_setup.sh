@@ -30,6 +30,7 @@ sudo apt install gnome-tweak-tool
 # sudo apt install transmission-daemon
 # sudo apt install mpv
 # sudo apt install libvdpau-va-gl1
+# sudo apt install ubuntu-restricted-extras
 sudo apt install ibus-libpinyin 
 sudo apt install ibus-clutter
 
