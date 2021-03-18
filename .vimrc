@@ -80,6 +80,8 @@ inoremap <C-S-tab> <Esc>:tabprevious<CR>
 " If there is a pause when leaving insert mode:
 " set ttimeoutlen=50
 
+" python-syntax
+let g:python_highlight_all = 1
 
 " ale
 let g:ale_open_list = 1
