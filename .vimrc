@@ -42,7 +42,9 @@ set colorcolumn=88
 filetype indent on
 syntax on
 
-set foldmethod=syntax
+set foldmethod=indent
+set foldlevel=1
+set foldclose=all
 "let r_syntax_folding = 1
 
 colorscheme molokai
