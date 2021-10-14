@@ -1,0 +1,6 @@
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=false
+default-size-columns=96
+default-size-rows=32
+font='Monospace 15'
+use-system-font=false

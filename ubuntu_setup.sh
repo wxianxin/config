@@ -24,15 +24,15 @@ sudo apt install flake8 # for vim ale
 ################################################################################
 sudo apt install git
 sudo apt install vim
-sudo apt install gnome-tweak-tool
+sudo apt install gnome-tweaks
 # sudo apt install nfs-kernel-server # then specify which path to share in /etc/exports; END
 # sudo apt install openssh-server
 # sudo apt install transmission-daemon
 # sudo apt install mpv
 # sudo apt install libvdpau-va-gl1
 # sudo apt install ubuntu-restricted-extras
-sudo apt install ibus-libpinyin 
-sudo apt install ibus-clutter
+# sudo apt install ibus-libpinyin 
+# sudo apt install ibus-clutter
 
 sudo apt update
 sudo apt install -f
@@ -52,6 +52,9 @@ rm -r ~/Pictures
 rm -r ~/Public
 rm -r ~/Templates
 rm -r ~/Videos
+########################################################################################
+# gnome-terminal
+cat ~/config/gterminal.profiles | dconf load /org/gnome/terminal/legacy/profiles:/
 ########################################################################################
 # git
 git config --global diff.tool vimdiff
