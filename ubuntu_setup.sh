@@ -31,8 +31,8 @@ sudo apt install gnome-tweaks
 # sudo apt install mpv
 # sudo apt install libvdpau-va-gl1
 # sudo apt install ubuntu-restricted-extras
-# sudo apt install ibus-libpinyin 
-# sudo apt install ibus-clutter
+sudo apt install ibus-libpinyin 
+# then go to settings->keyboard->Input Sources-> + -> dot dot dot -> other -> chinese
 
 sudo apt update
 sudo apt install -f
