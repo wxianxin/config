@@ -21,7 +21,15 @@ python3 -m venv ~/.venv/p
 source ~/.venv/p/bin/activate
 python3 -m pip install numpy pandas scipy black
 sudo apt install flake8 # for vim ale
-################################################################################
+########################################################################################
+# gnome terminal customization
+gsettings get org.gnome.Terminal.ProfilesList list
+currentprofile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+gsettings get org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ font
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ font 'Monospace 18'
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ default-size-rows 32
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ default-size-columns 100 
+########################################################################################
 sudo apt install git
 sudo apt install vim
 sudo apt install gnome-tweaks
