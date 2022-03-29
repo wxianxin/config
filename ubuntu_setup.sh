@@ -1,7 +1,7 @@
 #!/bin/bash
 # DO NOT sudo execute this script
 
-echo "########" >> ~/.bashrc
+echo "################" >> ~/.bashrc
 echo "# Steven" >> ~/.bashrc
 echo "alias python="python3"" >> ~/.bashrc
 echo "alias weather='curl v2.wttr.in/newyork'" >> ~/.bashrc
@@ -11,8 +11,8 @@ echo "source ~/.venv/p/bin/activate" >> ~/.bashrc
 source ~/.bashrc
 
 cp -r ~/config/.vim ~
-cp ~/config/.toprc ~
 cp ~/config/.vimrc ~
+cp ~/config/.toprc ~
 ################################################################################
 # python setup
 sudo apt install python3-venv
