@@ -72,8 +72,11 @@ git config --global user.email wxianxinreg@gmail.com
 git config --global user.name wxianxin
 ################################################################################
 ################################################################################
+# reboot to windows from ubuntu
+# sudo grub-reboot [X]
 ################################################################################
 # T420
 # /etc/rc.local
 # echo 10 > /sys/class/backlight/intel_backlight/brightness
+
 
