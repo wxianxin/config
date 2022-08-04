@@ -1,10 +1,8 @@
-pacman -S iwd, bluez, bluez-utils
-# pacman -S networkmanager
-
-
+pacman -S os-prober, bluez, bluez-utils, networkmanager
+# pacman -S noto-fonts-cjk
 
 # autostart
-systemctl enable iwd
+# systemctl enable iwd
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
 
