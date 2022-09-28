@@ -1,4 +1,4 @@
-" MIT License. Copyright (c) 2013-2020 Bailey Ling et al.
+" MIT License. Copyright (c) 2013-2021 Bailey Ling et al.
 " vim: et ts=2 sts=2 sw=2
 
 scriptencoding utf-8
@@ -23,8 +23,10 @@ endfunction
 let s:script_path = tolower(resolve(expand('<sfile>:p:h')))
 
 let s:filetype_overrides = {
+      \ 'coc-explorer':  [ 'CoC Explorer', '' ],
       \ 'defx':  ['defx', '%{b:defx.paths[0]}'],
       \ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}'],
+      \ 'floggraph':  [ 'Flog', '%{get(b:, "flog_status_summary", "")}' ],
       \ 'gundo': [ 'Gundo', '' ],
       \ 'help':  [ 'Help', '%f' ],
       \ 'minibufexpl': [ 'MiniBufExplorer', '' ],
@@ -165,6 +167,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'gina')
   endif
 
+  if get(g:, 'loaded_fern', 0) && get(g:, 'airline#extensions#fern#enabled', 1)
+    call airline#extensions#fern#init(s:ext)
+    call add(s:loaded_ext, 'fern')
+  endif
+
   if exists(':NetrwSettings')
     call airline#extensions#netrw#init(s:ext)
     call add(s:loaded_ext, 'netrw')
@@ -174,6 +181,12 @@ function! airline#extensions#load()
   if exists(':FZF') && get(g:, 'airline#extensions#fzf#enabled', 1)
     call airline#extensions#fzf#init(s:ext)
     call add(s:loaded_ext, 'fzf')
+  endif
+
+  " Vim-CMake buffers are also terminal buffers, so this must be above term.
+  if get(g:, 'loaded_cmake', 0) && get(g:, 'airline#extensions#vimcmake#enabled', 1)
+    call airline#extensions#vimcmake#init(s:ext)
+    call add(s:loaded_ext, 'vimcmake')
   endif
 
   if (has("terminal") || has('nvim')) &&
@@ -237,6 +250,10 @@ function! airline#extensions#load()
     call airline#extensions#tagbar#init(s:ext)
     call add(s:loaded_ext, 'tagbar')
   endif
+  if get(g:, 'airline#extensions#taglist#enabled', 1) && exists(':TlistShowTag')
+    call airline#extensions#taglist#init(s:ext)
+    call add(s:loaded_ext, 'taglist')
+  endif
 
   if get(g:, 'airline#extensions#vista#enabled', 1)
         \ && exists(':Vista')
@@ -248,6 +265,11 @@ function! airline#extensions#load()
         \ && exists(':BookmarkToggle')
     call airline#extensions#bookmark#init(s:ext)
     call add(s:loaded_ext, 'bookmark')
+  endif
+
+  if get(g:, 'airline#extensions#scrollbar#enabled', 0)
+    call airline#extensions#scrollbar#init(s:ext)
+    call add(s:loaded_ext, 'scrollbar')
   endif
 
   if get(g:, 'airline#extensions#csv#enabled', 1)
@@ -325,6 +347,13 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'lsp')
   endif
 
+  if (get(g:, 'airline#extensions#nvimlsp#enabled', 1)
+        \ && has('nvim')
+        \ && luaeval('vim.lsp ~= nil'))
+    call airline#extensions#nvimlsp#init(s:ext)
+    call add(s:loaded_ext, 'nvimlsp')
+  endif
+
   if (get(g:, 'airline#extensions#coc#enabled', 1) && exists(':CocCommand'))
     call airline#extensions#coc#init(s:ext)
     call add(s:loaded_ext, 'coc')
@@ -370,7 +399,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'promptline')
   endif
 
-  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && exists(':NR') == 2
+  if get(g:, 'airline#extensions#nrrwrgn#enabled', 1) && get(g:, 'loaded_nrrw_rgn', 0)
       call airline#extensions#nrrwrgn#init(s:ext)
     call add(s:loaded_ext, 'nrrwrgn')
   endif
@@ -388,6 +417,11 @@ function! airline#extensions#load()
   if (get(g:, 'airline#extensions#gutentags#enabled', 1) && get(g:, 'loaded_gutentags', 0))
     call airline#extensions#gutentags#init(s:ext)
     call add(s:loaded_ext, 'gutentags')
+  endif
+
+  if get(g:, 'airline#extensions#gen_tags#enabled', 1) && (get(g:, 'loaded_gentags#gtags', 0) || get(g:, 'loaded_gentags#ctags', 0))
+    call airline#extensions#gen_tags#init(s:ext)
+    call add(s:loaded_ext, 'gen_tags')
   endif
 
   if (get(g:, 'airline#extensions#grepper#enabled', 1) && get(g:, 'loaded_grepper', 0))
@@ -433,10 +467,20 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'searchcount')
   endif
 
+  if get(g:, 'loaded_battery', 0) && get(g:, 'airline#extensions#battery#enabled', 0)
+    call airline#extensions#battery#init(s:ext)
+    call add(s:loaded_ext, 'battery')
+  endif
+
+  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#errorCount'))
+    call airline#extensions#vim9lsp#init(s:ext)
+    call add(s:loaded_ext, 'vim9lsp')
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).
-    for file in split(globpath(&rtp, "autoload/airline/extensions/*.vim"), "\n")
+    for file in split(globpath(&rtp, 'autoload/airline/extensions/*.vim', 1), "\n")
       " we have to check both resolved and unresolved paths, since it's possible
       " that they might not get resolved properly (see #187)
       if stridx(tolower(resolve(fnamemodify(file, ':p'))), s:script_path) < 0
@@ -464,6 +508,11 @@ function! airline#extensions#load()
   if (get(g:, 'airline#extensions#omnisharp#enabled', 1) && get(g:, 'OmniSharp_loaded', 0))
     call airline#extensions#omnisharp#init(s:ext)
     call add(s:loaded_ext, 'omnisharp')
+  endif
+
+  if (get(g:, 'airline#extensions#rufo#enabled', 0) && get(g:, 'rufo_loaded', 0))
+    call airline#extensions#rufo#init(s:ext)
+    call add(s:loaded_ext, 'rufo')
   endif
 
 endfunction
