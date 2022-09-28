@@ -10,6 +10,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 genfstab -U /mnt >> /mnt/etc/fstab
 # add user other than root
 useradd -m -s /bin/bash my_user
+
+################################
+# pacman -S base-devel
+################################
+
 # enable sudo for the user
 usermod -aG wheel my_user
 

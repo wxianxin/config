@@ -1,5 +1,5 @@
-" .vimrc 20200713
-" .vim/ 20200713
+" .vimrc 20220928
+" .vim/ 20220928
 
 " TODO <leader>
 
@@ -39,8 +39,9 @@ set hlsearch
 set ignorecase
 set smartcase
 set colorcolumn=88
-filetype indent on
-syntax on
+
+filetype plugin indent on
+syntax enable
 
 set foldmethod=indent
 set foldlevel=1

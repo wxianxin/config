@@ -24,6 +24,10 @@ python3 -m venv ~/.venv/p
 source ~/.venv/p/bin/activate
 python3 -m pip install numpy pandas black flake8    # flake8 for vim ale
 ########################################################################################
+# rust setup
+
+rustup component add rls, rust-analysis, rust-src   # needed for vim etc.
+########################################################################################
 # Gsettings
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ## HIDPI
