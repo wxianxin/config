@@ -1,4 +1,4 @@
-" .vimrc 20220928
+" .vimrc 20220930
 " .vim/ 20220928
 
 " TODO <leader>
@@ -55,7 +55,8 @@ nnoremap <F2> :set nu! <CR>
 nnoremap <F3> :ALEToggle <CR>
 nnoremap <F4> :GitGutterToggle <CR>
 nnoremap <S-F4> :GitGutterLineHighlightsToggle <CR>
-nnoremap <F5> :w<CR> :!clear;python3 "%"<CR>
+autocmd FileType python nnoremap <buffer> <F5> :w<CR> :!clear;python3 "%"<CR>
+autocmd FileType rust nnoremap <buffer> <F5> :w<CR> :!clear;cargo run<CR>
 nnoremap <S-F5> :w<CR> :!clear;python3 -i "%"<CR>
 nnoremap <F6> ggvG= <CR>
 " <F6> to auto indent code
