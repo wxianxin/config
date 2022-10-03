@@ -3,6 +3,7 @@
 
 echo "################" >> ~/.bashrc
 echo "# Steven" >> ~/.bashrc
+echo "PS1='\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$ '" >> ~/.bashrc
 echo "alias python="python3"" >> ~/.bashrc
 echo "alias weather='curl v2.wttr.in/newyork'" >> ~/.bashrc
 echo "alias dropbox=~/.dropbox-dist/dropboxd" >> ~/.bashrc
