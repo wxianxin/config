@@ -1,6 +1,6 @@
 # arch install
 
-ls -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 echo archname > /etc/hostname
 pacman -S grub efibootmgr os-prober
@@ -15,11 +15,11 @@ useradd -m -s /bin/bash my_user
 # pacman -S base-devel
 ################################
 
+pacman -S sudo
 # enable sudo for the user
 usermod -aG wheel my_user
 
-pacman -S networkmanager sudo
-
+pacman -S networkmanager
 pacman -S gdm gnome-terminal
 pacman -S gnome-control-center
 pacman -S nautilus
