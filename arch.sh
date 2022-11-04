@@ -20,10 +20,9 @@ pacman -S sudo
 usermod -aG wheel my_user
 
 pacman -S networkmanager
-pacman -S gdm gnome-terminal
+pacman -S gdm gnome-console gnome-disk-utility gnome-system-monitor gnome-text-editor nautilus gvfs-smb
+# gvfs-smb: smb for nautilus
 pacman -S gnome-control-center
-pacman -S nautilus
-# pacman -S gvfs-smb # smb for nautilus
 
 pacman -S bluez bluez-utils
 pacman -S noto-fonts-cjk    # chinese font

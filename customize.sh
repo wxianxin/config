@@ -16,7 +16,7 @@ cp ~/config/.vimrc ~
 cp ~/config/.toprc ~
 
 # Gnome Customization
-sudo hostnamectl set-hostname --static dcm
+sudo hostnamectl set-hostname --static archbase
 
 ################################################################################
 # python setup
@@ -27,7 +27,7 @@ python3 -m pip install numpy pandas black flake8    # flake8 for vim ale
 ########################################################################################
 # rust setup
 
-rustup component add rls, rust-analysis, rust-src   # needed for vim etc.
+# rustup component add rls, rust-analysis, rust-src   # needed for vim etc.
 ########################################################################################
 # Gsettings
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
@@ -40,15 +40,6 @@ gsettings set org.gnome.desktop.background picture-uri file:///~/config/config/c
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control><Alt>t'
-## gnome terminal customization
-gsettings get org.gnome.Terminal.ProfilesList list
-currentprofile=$(gsettings get org.gnome.Terminal.ProfilesList default)
-gsettings get org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ font
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ font 'Monospace 18'
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ default-size-rows 32
-gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${currentprofile:1:-1}/ default-size-columns 100 
-## gnome-terminal
-cat ~/config/gterminal.profiles | dconf load /org/gnome/terminal/legacy/profiles:/
 ########################################################################################
 # git
 git config --global diff.tool vimdiff
