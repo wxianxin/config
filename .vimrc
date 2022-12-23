@@ -39,6 +39,7 @@ set hlsearch
 set ignorecase
 set smartcase
 set colorcolumn=88
+set mouse-=a
 
 filetype plugin indent on
 syntax enable
@@ -55,7 +56,7 @@ nnoremap <F2> :set nu! <CR>
 nnoremap <F3> :ALEToggle <CR>
 nnoremap <F4> :GitGutterToggle <CR>
 nnoremap <S-F4> :GitGutterLineHighlightsToggle <CR>
-autocmd FileType python nnoremap <buffer> <F5> :w<CR> :!clear;python3 "%"<CR>
+autocmd FileType python nnoremap <buffer> <F5> :w<CR> :!clear;python3 -m pdb -c continue "%"<CR>
 autocmd FileType rust nnoremap <buffer> <F5> :w<CR> :!clear;cargo run<CR>
 nnoremap <S-F5> :w<CR> :!clear;python3 -i "%"<CR>
 nnoremap <F6> ggvG= <CR>
