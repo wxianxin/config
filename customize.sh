@@ -1,14 +1,17 @@
 #!/bin/bash
 # DO NOT sudo execute this script
 
-echo "################" >> ~/.bashrc
-echo "# Steven" >> ~/.bashrc
-echo "PS1='\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$ '" >> ~/.bashrc
-echo "alias python="python3"" >> ~/.bashrc
-echo "alias weather='curl v2.wttr.in/newyork'" >> ~/.bashrc
-echo "alias dropbox=~/.dropbox-dist/dropboxd" >> ~/.bashrc
-echo "alias tms='transmission-remote --auth transmission:password'" >> ~/.bashrc
-echo "source ~/.venv/p/bin/activate" >> ~/.bashrc
+cat >> ~/.bashrc << EOF
+########################################################################################
+# Steven
+PS1='\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$ '
+alias python="python3"
+alias weather='curl v2.wttr.in/newyork'
+alias dropbox=~/.dropbox-dist/dropboxd
+alias tms='transmission-remote --auth transmission:password'
+source ~/.venv/p/bin/activate
+EOF
+
 source ~/.bashrc
 
 cp -r ~/config/.vim ~

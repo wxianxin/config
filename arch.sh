@@ -19,10 +19,12 @@ pacman -S sudo
 # enable sudo for the user
 usermod -aG wheel my_user
 
+########################################################################################
+# gnome
 pacman -S networkmanager
-pacman -S gdm gnome-console gnome-disk-utility gnome-system-monitor gnome-text-editor nautilus gvfs-smb
+pacman -S gdm gnome-console gnome-disk-utility gnome-system-monitor gnome-text-editor nautilus gvfs-smb gnome-control-center
 # gvfs-smb: smb for nautilus
-pacman -S gnome-control-center
+########################################################################################
 
 pacman -S bluez bluez-utils
 pacman -S noto-fonts-cjk    # chinese font
