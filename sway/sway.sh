@@ -8,6 +8,17 @@ cp /etc/sway/config .config/sway
 cp ~/config/sway/* .config/sway
 
 # Add single or double quotes to the first delimiter to ignore variable and command expansion in a HereDoc
+cat >> ~/.bashrc << "EOF"
+################################################################
+# sway
+export MOZ_ENABLE_WAYLAND=1
+
+# start sway on tty login
+if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+      exec sway
+fi
+EOF
+
 cat >> ~/.config/sway/config << "EOF"
 ########################################################################################
 # Steven
@@ -16,24 +27,16 @@ output * bg ~/config/static/colorful.jpg fill
 input * accel_profile flat
 input * pointer_accel -0.5
 
-bindsym $mod+0 exec bash ~/.config/sway/lock.sh 
+bindsym $mod+0 exec bash ~/.config/sway/lock.sh
+F86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 exec swayidle -w \
          timeout 480 'swaylock -f -c 000000' \
          timeout 490 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
-EOF
-
-# Add single or double quotes to the first delimiter to ignore variable and command expansion in a HereDoc
-cat >> ~/.bashrc << "EOF"
-################################
-# sway
-export MOZ_ENABLE_WAYLAND=1
-
-# start sway on tty login
-if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-      exec sway
-fi
 EOF
 
 
