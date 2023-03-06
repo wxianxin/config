@@ -50,6 +50,9 @@ git config --global difftool.prompt false
 git config --global alias.d difftool
 git config --global user.email wxianxinreg@gmail.com
 git config --global user.name wxianxin
+########################################################################################
+# input method
+sudo pacman -S fcitx5 fcitx5-gtk ibus-pinyin
 ################################################################################
 # grub
 # sudo grub-reboot [X]  # reboot to windows from linux
