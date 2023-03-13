@@ -1,20 +1,35 @@
-# sudo mount /dev/nvme0n1p5 ~/L
-# sudo mount -o rsize=32768,wsize=32768 192.168.1.1:/home/pi/L ~/nfs
-sudo mount -t cifs -o username=sysxadmin,uid=coupe,vers=2.0 //192.168.0.0/drive ~/L/Downloads
-# sudo apt install curlftpfs
-# curlftpfs -o user={$USERNAME}:{$PASSWORD} 192.168.00.1/Seagate_Backup_Plus_Drive/drive ~/L/Downloads
+########################################################################################
+# nfs
+sudo pacman -S nfs-utils
+sudo systemctl stop nfs-server.service      # v3
+sudo systemctl start nfs4-server.service    # v4
+echo "/nfs/exports/myshare 192.168.122.0/24(rw,sync)" > /etc/exports
+# rw: enable read and write
+# sync: confirm write operation completed before server responds back to client, better data integrity, slightly worse performance.
 
+# sudo mount -o rsize=32768,wsize=32768 192.168.1.1:/home/pi/L ~/nfs
+########################################################################################
+# samba
+sudo mount -t cifs -o username=sysxadmin,uid=coupe,vers=2.0 //192.168.0.0/drive ~/L/Downloads
+
+########################################################################################
 # restart the service because it won't read user specific settings right after boot
 sudo service transmission-daemon stop
 transmission-daemon
 
-# rsync -aP -e "ssh -p 22" /home/coupe/L/Downloads/blabla pi@192.168.1.1:/home/pi/L/Downloads
-# python -m http.server 8000
+########################################################################################
+# rsync
+rsync -avzP -e "ssh -p 9022 -i /path/to/private_key" /home/user/blabla pi@192.168.1.1:/home/pi/target
+# "-a" means "archive mode" and is used to preserve permissions, ownership, timestamps, and other attributes of the files being synced. It is equivalent to using "-rlptgoD".
+# "-v" means "verbose" and is used to display detailed information about the files being synced.
+# "-z" means "compress" and is used to compress the data being transferred, which can reduce the amount of data sent over the network.
+# "-P" means "progress" and is used to display a progress bar during the sync, as well as to allow for the resumption of interrupted transfers.
 
+########################################################################################
+# python -m http.server 8000
 
 ########################################################################################
 # iSCSI
-########################################################################################
 ########################################
 ## target side
 
