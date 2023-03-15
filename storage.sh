@@ -32,10 +32,13 @@ rsync -avzP -e "ssh -p 9022 -i /path/to/private_key" /home/user/blabla pi@192.16
 # iSCSI
 ########################################
 ## target side
+# install targetcli-fb
 
 # create new block
 ## block device
 /backstores/block> create dev=/dev/sdxx name=sdxx
+### same as 
+/backstores/block> create sdxx /dev/sdxx
 
 # create iSCSI target
 # naming rule : [ iqn.(year)-(month).(reverse of domain name):(description: any name you like) ]
@@ -43,18 +46,33 @@ rsync -avzP -e "ssh -p 9022 -i /path/to/private_key" /home/user/blabla pi@192.16
 
 # create ACL(Access Control List)
 /iscsi> cd iqn.2022-11.stevenwang.trade:drive/tpg1/acls
-/iscsi/iqn.20...ers/tpg1/acls> create wwn=iqn.2022-11.stevenwang.trade:node1
+/iscsi/iqn.20...ers/tpg1/acls> create wwn=iqn.2022-11.stevenwang.trade:node01.initiator01
 
-# add LUN
+# add LUN (point target to the actual storage resource)
 cd iscsi/iqn.2022-11.stevenwang.trade:drive/tpg1/luns
     create /backstores/block/sdxx
+
+# authentication
+# turn on authentication
+/iscsi/iqn.20...00:drive/tpg1> set attribute authentication=1
+# turn off authentication
+/iscsi/iqn.20...00:drive/tpg1> set attribute authentication=0
 
 # !!! open up the port 3260 in the firewall
 ########################################
 # initiator side
+# install open-iscsi
+sudo systemctl start iscsid.service
 
 # Target discovery: Request the target its nodes.
 iscsiadm --mode discovery --type sendtargets --portal 192.168.0.0 --discover
+
+# set initiator name
+echo "InitiatorName=iqn.2022-11.stevenwang.trade:node01.initiator01" >> /etc/iscsi/initiatorname.iscsi
+# set username and password
+sudo vim sudo vim /etc/iscsi/iscsid.conf 
+
+sudo systemctl restart iscsid.service
 
 # Add target manually
 iscsiadm --mode node --targetname iqn.2022-11.stevenwang.trade:drive --portal 192.168.0.0 --login
