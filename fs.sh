@@ -6,3 +6,4 @@ sudo nmcli dev disconnect wlo1
 
 sudo systemctl start nfs-server.service
 sudo systemctl start target.service
+sudo systemctl start docker.service
