@@ -4,4 +4,5 @@ sudo chown -R coupe:coupe /dev/mapper/L
 
 sudo nmcli dev disconnect wlo1
 
+sudo systemctl start nfs-server.service
 sudo systemctl start target.service
