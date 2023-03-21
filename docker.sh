@@ -9,7 +9,7 @@
 sudo systemctl start docker.service
 
 # homeassistant
-docker run -d \
+sudo docker run -d \
   --name=homeassistant \
   --net=host \
   -e PUID=1000 \
@@ -22,18 +22,20 @@ docker run -d \
 
 
 # jellyfin
-docker run -d \
- --name jellyfin \
- --user uid:gid \
- --net=host \
- --volume /path/to/config:/config \ # Alternatively --volume jellyfin-config:/config
- --volume /path/to/cache:/cache \ # Alternatively --volume jellyfin-cache:/cache
- --mount type=bind,source=/path/to/media,target=/media \
- --restart=unless-stopped \
- jellyfin/jellyfin
+sudo docker run -d \
+  --name=jellyfin \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ="America/New_York" \
+  -p 8096:8096 \
+  -v /home/coupe/drive/container/jellyfin_config:/config \
+  -v /home/coupe/drive/downloads:/data/media \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jellyfin:latest
+
 
 # transmission
-docker run -d \
+sudo docker run -d \
   --name=transmission \
   -e PUID=1000 \
   -e PGID=1000 \
