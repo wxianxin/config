@@ -1,0 +1,106 @@
+########################################################################################
+# # docker
+# 
+# docker images # show all images
+# sudo docker stop $(sudo docker ps -a -q)
+# sudo docker rm $(sudo docker ps -a -q)
+# 
+# # configuration path: drive/container/
+# docker compose -f /path/to/heimdall.yml up -d
+# docker compose -f /path/to/heimdall.yml down
+#
+# # docker networking
+# sudo docker network ls
+# docker inspect wgnet
+#
+# sudo docker run --network=ssserver_default --network-alias=wireguard -ti --rm ubuntu /bin/bash
+########################################################################################
+---
+name: ssserver
+version: "2.1"
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+        #       - SERVERURL=wireguard.domain.com #optional
+        #       - SERVERPORT=51820 #optional
+        #       - PEERS=1 #optional
+        #       - PEERDNS=auto #optional
+        #       - INTERNAL_SUBNET=10.13.13.0 #optional
+        #       - ALLOWEDIPS=0.0.0.0/0 #optional
+        #       - PERSISTENTKEEPALIVE_PEERS= #optional
+        #       - LOG_CONFS=true #optional
+    volumes:
+      - /home/coupe/drive/container/wireguard_config:/config
+      - /lib/modules:/lib/modules #optional
+    networks:
+      wireguard-net:
+        ipv4_address: 172.20.0.50
+    ports:
+      - 9091:9091
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    depends_on:
+      - wireguard
+    network_mode: service:wireguard
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /home/coupe/drive/container/transmission_config:/config
+      - /home/coupe/drive/downloads:/downloads
+    restart: unless-stopped
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /home/coupe/drive/container/jellyfin_config:/config
+      - /home/coupe/drive/downloads:/data/media
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /home/coupe/drive/container/homeassistant_config:/config
+    ports:
+      - 8123:8123 #optional
+    restart: unless-stopped
+
+
+networks:
+  wireguard-net:
+    driver: bridge
+    name: wgnet
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+
