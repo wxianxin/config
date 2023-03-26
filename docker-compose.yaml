@@ -13,6 +13,9 @@
 # sudo docker network ls
 # docker inspect wgnet
 #
+# interative bash
+# docker exec -it <mycontainer> bash
+#
 # sudo docker run --network=ssserver_default --network-alias=wireguard -ti --rm ubuntu /bin/bash
 ########################################################################################
 ---
@@ -40,9 +43,9 @@ services:
     volumes:
       - /home/coupe/drive/container/wireguard_config:/config
       - /lib/modules:/lib/modules #optional
-    networks:
-      wireguard-net:
-        ipv4_address: 172.20.0.50
+        #     networks:
+        #       wireguard-net:
+        #         ipv4_address: 172.20.0.50
     ports:
       - 9091:9091
       - 51820:51820/udp

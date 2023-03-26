@@ -12,8 +12,16 @@
 # A packet is a unit of data that is used for communication between devices on different networks. It consists of a header and a payload, where the header includes information such as the source and destination IP addresses, the protocol being used, and other routing information. The payload contains the actual data being transmitted.
 # On the other hand, a frame is a unit of data that is used for communication between devices on the same network segment. It consists of a header and a payload, where the header includes information such as the source and destination MAC addresses, as well as other control information such as frame type, length, and error detection. The payload contains the actual data being transmitted.
 # The main difference between packets and frames is the layer of the OSI model at which they operate. Packets are used at the Network layer (Layer 3) to route data between different networks, while frames are used at the Data Link layer (Layer 2) to transmit data between devices on the same network segment.
+#
+# subnet
+# Each network interface has an ip and a subnet. Having both an IP address and a subnet mask allows the network devices to determine whether they can communicate directly with each other or if they need to forward packets to a different network.
 
 ########################################################################################
+# ip
+#
+ip link add dev wg0 type wireguard
+
+ip link set up dev wg0  # activate the network interface
 ########################################################################################
 # net-filter framework firewall
 # Tables, chains and rules are 3 fundamental concepts in the netfilter firewall framework used in Linux operating systems.
@@ -99,12 +107,117 @@ nft add rule table_name chain_name ip addr 8.8.8.8 counter    # counting number 
 ########################################
 # Matches
 # matches are clues used to access to certain packet information and create filters according to them. 
+########################################
+# dport: This is a shorthand for "destination port" and is used to match packets based on their destination port number. For example, the rule tcp dport 22 accept would accept all incoming TCP traffic with a destination port of 22 (which is the standard SSH port).
 
+# daddr: This is a shorthand for "destination address" and is used to match packets based on their destination IP address. For example, the rule ip daddr 10.0.0.1 drop would drop all incoming packets with a destination IP address of 10.0.0.1.
+
+# dnat: This is a shorthand for "destination NAT" and is used to modify the destination IP address and/or port number of packets. For example, the rule tcp dport 80 dnat 192.168.1.1:8080 would forward all incoming TCP traffic with a destination port of 80 to the IP address 192.168.1.1 on port 8080.
+
+# Note that dport and daddr are used for packet filtering (i.e., deciding whether to accept, drop, or modify packets), while dnat is used for packet manipulation (i.e., modifying the destination IP address and/or port number of packets).
+########################################
+# chains give us where the filtering needs to be done, and rules state what needs to be filtered
+
+
+sudo nft list tables
+sudo nft list chains
+sudo nft list ruleset
+# delete chain
+sudo nft delete chain inet wg_table wg_chain
+# delete rule using handle
+sudo nft -a list table inet wg_table
+sudo nft delete rule inet wg_table wg_chain handle 6
+
+
+sudo nft add table inet wg_table
+sudo nft add chain inet wg_table wg_chain \{ type filter hook input priority 0\; policy accept\; \}
+sudo nft add rule inet wg_table wg_chain icmp type echo-request reject  # icmp: protocol; reject: action
+
+sudo nft -f file_name.nft
+################################################################
+# #!/usr/bin/nft -f
+# 
+# table inet wg_table {
+#     chain wg_chain_output {
+#         type filter hook output priority 0; policy accept;
+#         ip daddr 13.127.19.131 reject;  # ip to block
+#     }
+# }
+################################################################
+
+# make the rules persistent
+sudo cp /etc/nftables.conf /etc/nftables.backup
+sudo nft list ruleset > /etc/nftables.conf
+sudo  nft list ruleset | sudo tee /etc/nftables.conf
+sudo systemctl enable nftables
+sudo systemctl list-unit-files | grep nftables  # check if nftables is enabled
+########################################################################################
+# forwarding
+# ┌──────────────────────┐                                     ┌──────────────────────┐
+# │                      │                                     │                      │
+# │ Incoming packet      │                                     │ Outgoing packet      │
+# │ source IP + port     │                                     │ source IP + port     │
+# │ destination IP + port│                                     │ destination IP + port│
+# │                      │                                     │                      │
+# └─────────┬────────────┘                                     └─────────▲────────────┘
+#           │                                                            │
+# ┌─────────┼────────────────────────────────────────────────────────────┼────────────┐
+# │         │                                                            │            │
+# │  ┌──────▼─────┐      ┌─┬───────┬─┐        ┌────────────┐      ┌──────┴──────┐     │
+# │  │            │      │ ├───────┤ │        │            │      │             │     │
+# │  │ PREROUTING ├──────►─┤ROUTING│ ├────────► FORWARD    ├──────► POSTROUTING │     │
+# │  │    DNAT    │      │ ├───────┤ │        │            │      │    SNAT     │     │
+# │  │            │      └─┴───┼───┴─┘        │            │      │             │     │
+# │  └────────────┘            │              └────────────┘      └──────▲──────┘     │
+# │                            │                                         │            │
+# │                      ┌─────▼───────┐                          ┌──────┴──────┐     │
+# │                      │             │                          │             │     │
+# │                      │  INPUT      │                          │ OUTPUT      │     │
+# │                      │  filter     │                          │ filter      │     │
+# │                      │             │                          │             │     │
+# │                      └─────┬───────┘                          └──────▲──────┘     │
+# │                            │                                         │            │
+# └────────────────────────────┼─────────────────────────────────────────┼────────────┘
+#                              │                                         │
+#                              │            ┌─────────────────┐          │
+#                              │            │                 │          │
+#                              └────────────► Application     ├──────────┘
+#                                           │                 │
+#                                           │                 │
+#                                           └─────────────────┘
+# enable IP forwarding, used by `net`
+sudo sysctl net.ipv4.ip_forward # check if it's enabled
+sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf # To enable IP forwarding persistently
+
+sudo nft flush ruleset  # clean rules, effectively resetting `nftables`
+
+sudo nft add table nat
+sudo nft 'add chain nat postrouting { type nat hook postrouting priority 100 ; }'
+sudo nft 'add chain nat prerouting { type nat hook prerouting priority -100; }'
+sudo nft 'add rule nat prerouting ip daddr 10.1.1.1 tcp dport { 8888 } dnat 10.2.2.2:9999'
+sudo nft add rule nat postrouting masquerade    # used to rewrite the source IP address of outgoing packets with the IP address of the device's network interface
+sudo nft list ruleset
 ########################################################################################
 # wireguard                                                                              
+# Each network interface has a private key and a list of peers.
+# Each peer has a public key.
+# Cryptokey Routing Table: the simple association of public keys and allowed IPs. When sending packets, the list of allowed IPs behaves as a sort of routing table, and when receiving packets, the list of allowed IPs behaves as a sort of access control list.
+
 # install wireguard on both server and client
 # sudo pacman -S wireguard-tools
 # use key pair to connect between server and client
 # route specific traffic using allowed IPs ( set transmission traffic to the ip)
 
+ip link add dev wg0 type wireguard
+ip address add dev wg0 192.168.2.1/24
+wg setconf wg0 myconfig.conf    # or
+wg set wg0 listen-port 51820 private-key /path/to/private-key peer ABCDEF... allowed-ips 192.168.88.0/24 endpoint 209.202.254.14:8172
+ip link set up dev wg
+
+# wg-quick
+sudo vim /etc/wireguard/wg0.conf
+sudo wg-quick up wg0
+sudo wg-quick down wg0
+sudo wg show
+sudo wg showconf
 ########################################################################################
