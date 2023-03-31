@@ -38,3 +38,9 @@ pacman -S noto-fonts-cjk    # chinese font
 sudo systemctl start iwd & sudo iwctl station wlan0 connect Italia_5G & sudo dhcpcd wlan0
 # sudo nmcli dev wifi connect Italia_5G password ""
 
+########################################################################################
+# pipewire
+pacman -S pipewire
+systemctl --user enable pipewire.service
+systemctl --user start pipewire.service
+########################################################################################
