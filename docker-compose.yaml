@@ -15,6 +15,8 @@
 #
 # interative bash
 # docker exec -it <mycontainer> bash
+# check logs
+# sudo docker logs <mycontainer>
 #
 # sudo docker run --network=ssserver_default --network-alias=wireguard -ti --rm ubuntu /bin/bash
 ########################################################################################
@@ -76,6 +78,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
+    devices:
+      - /dev/dri:/dev/dri
     volumes:
       - /home/coupe/drive/container/jellyfin_config:/config
       - /home/coupe/drive/downloads:/data/media
@@ -95,6 +99,36 @@ services:
       - /home/coupe/drive/container/homeassistant_config:/config
     ports:
       - 8123:8123 #optional
+    restart: unless-stopped
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+    volumes:
+      - /home/coupe/drive/container/mariadb_config:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /home/coupe/drive/container/nextcloud_config:/config
+      - /home/coupe/drive/nextcloud:/data
+    ports:
+      - 443:443
     restart: unless-stopped
 
 
