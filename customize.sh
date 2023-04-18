@@ -6,7 +6,7 @@ cat >> ~/.bashrc << EOF
 # Steven
 PS1='\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$ '
 alias python="python3"
-alias weather='curl v2.wttr.in/newyork'
+alias weather="curl 'wttr.in/?m&format=%T+%l+%C+%c+%t+%h+%w+%m+%M+%p+%P+%u\nDawn:+%D\nSunrise:+%S\nZenith:+%z\nSunset:+%s\nDusk:+%d\n'"
 alias dropbox=~/.dropbox-dist/dropboxd
 alias tms='transmission-remote --auth transmission:password'
 source ~/.venv/p/bin/activate
