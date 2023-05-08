@@ -5,8 +5,14 @@
 # Gateway is the entry point of the subnet; at least 1 gateway per subnet
 # Each gateway must be assigned an ip address in the subnet
 #
-# OCI model
-# OCI layer 2: At the Data Link layer, data is encapsulated into frames that include both the source and destination Media Access Control (MAC) addresses. The Data Link layer devices, such as switches and bridges, use this information to forward the frames between different devices on the same network segment. They also perform functions such as error detection and correction, flow control, and access control.
+# OSI model
+# 5. Application layer: Message - HTTP, DHCP, SSH
+# 4. Transport layer: TCP segment - Port
+# 3. Internet layer: Packet - IP
+# 2. Data Link layer: Frame - MAC
+# 1. Physical layer: Bits - NIC, PHY
+#
+# OSI layer 2: At the Data Link layer, data is encapsulated into frames that include both the source and destination Media Access Control (MAC) addresses. The Data Link layer devices, such as switches and bridges, use this information to forward the frames between different devices on the same network segment. They also perform functions such as error detection and correction, flow control, and access control.
 #
 # packet vs. frame
 # A packet is a unit of data that is used for communication between devices on different networks. It consists of a header and a payload, where the header includes information such as the source and destination IP addresses, the protocol being used, and other routing information. The payload contains the actual data being transmitted.
@@ -16,6 +22,8 @@
 # subnet
 # Each network interface has an ip and a subnet. Having both an IP address and a subnet mask allows the network devices to determine whether they can communicate directly with each other or if they need to forward packets to a different network.
 
+########################################################################################
+traceroute -I 8.8.8.8
 ########################################################################################
 # ip
 #
