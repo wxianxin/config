@@ -32,10 +32,18 @@ pacman -S bluez bluez-utils
 systemctl enable bluetooth.service
 
 pacman -S noto-fonts-cjk    # chinese font
+pacman -S noto-fonts-emoji
 
 
 # wifi
-sudo systemctl start iwd & sudo iwctl station wlan0 connect Italia_5G & sudo dhcpcd wlan0
+sudo systemctl start iwd
+sudo iwctl station wlan0 connect wifi_name
+vi /etc/iwd/main.conf
+# [General]
+# EnableNetworkConfiguration=true
+# DNS
+sudo systemctl enable systemd-resolved.service 
+
 # sudo nmcli dev wifi connect Italia_5G password ""
 
 ########################################################################################

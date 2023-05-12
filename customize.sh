@@ -57,4 +57,6 @@ sudo pacman -S fcitx5 fcitx5-gtk ibus-pinyin
 # grub
 # sudo grub-reboot [X]  # reboot to windows from linux
 
-
+########################################################################################
+# hardware
+# echo 32000 > /sys/class/backlight/intel_backlight/brightness
