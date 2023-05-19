@@ -51,4 +51,11 @@ sudo systemctl enable systemd-resolved.service
 pacman -S pipewire
 systemctl --user enable pipewire.service
 systemctl --user start pipewire.service
+
+# sound card
+sudo pacman -S sof-firmware
+
+# bluetooth headset
+# set "ControllerMode = bredr" in /etc/bluetooth/main.conf
+sudo pacman -S pipewire-pulse
 ########################################################################################
