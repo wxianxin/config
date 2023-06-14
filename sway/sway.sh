@@ -1,7 +1,9 @@
 #!/bin/bash
 # sway
 
-sudo pacman -S sway swaybg swayidle swaylock foot 
+sudo pacman -S sway swaybg swayidle swaylock foot # wofi
+# screenshot
+sudo pacman -S grim slurp
 
 sudo usermod -aG seat coupe
 sudo systemctl enable seatd.service
