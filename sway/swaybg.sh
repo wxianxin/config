@@ -1,6 +1,6 @@
 #!/bin/bash
  
-WP_PATH=/home/coupe/Downloads/5k
+WP_PATH=/home/$LOGNAME/downloads/5k
  
 LIST=(`ls -1 $WP_PATH`)
 WP_COUNT=`ls -1 $WP_PATH | wc -l`

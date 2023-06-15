@@ -70,7 +70,7 @@ iscsiadm --mode discovery --type sendtargets --portal 192.168.0.0 --discover
 # set initiator name
 echo "InitiatorName=iqn.2022-11.stevenwang.trade:node01.initiator01" >> /etc/iscsi/initiatorname.iscsi
 # set username and password
-sudo vim sudo vim /etc/iscsi/iscsid.conf 
+sudo vim /etc/iscsi/iscsid.conf 
 
 sudo systemctl restart iscsid.service
 
