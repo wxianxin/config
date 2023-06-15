@@ -2,6 +2,7 @@
 # sway
 
 sudo pacman -S sway swaybg swayidle swaylock foot # wofi
+
 # screenshot
 sudo pacman -S grim slurp
 

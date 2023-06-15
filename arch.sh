@@ -2,6 +2,8 @@
 
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
+pacman -S openssh
+
 echo archname > /etc/hostname
 pacman -S grub efibootmgr # os-prober
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -39,8 +41,9 @@ pacman -S noto-fonts-emoji
 sudo systemctl start iwd
 sudo iwctl station wlan0 connect wifi_name
 vi /etc/iwd/main.conf
-# [General]
-# EnableNetworkConfiguration=true
+    # [General]
+    # EnableNetworkConfiguration=true
+
 # DNS
 sudo systemctl enable systemd-resolved.service 
 

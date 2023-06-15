@@ -7,8 +7,6 @@ cat >> ~/.bashrc << EOF
 PS1='\[\e]0;\w\a\]\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$ '
 alias python="python3"
 alias weather="curl 'wttr.in/?m&format=%T+%l+%C+%c+%t+%h+%w+%m+%M+%p+%P+%u\nDawn:+%D\nSunrise:+%S\nZenith:+%z\nSunset:+%s\nDusk:+%d\n'"
-alias dropbox=~/.dropbox-dist/dropboxd
-alias tms='transmission-remote --auth transmission:password'
 source ~/.venv/p/bin/activate
 EOF
 
@@ -18,15 +16,12 @@ cp -r ~/config/.vim ~
 cp ~/config/.vimrc ~
 cp ~/config/.toprc ~
 
-# Gnome Customization
-sudo hostnamectl set-hostname --static archbase
-
 ################################################################################
 # python setup
 mkdir ~/.venv
-python3 -m venv ~/.venv/p
+python -m venv ~/.venv/p
 source ~/.venv/p/bin/activate
-python3 -m pip install numpy pandas black flake8    # flake8 for vim ale
+python -m pip install numpy pandas black flake8    # flake8 for vim ale
 ########################################################################################
 # rust setup
 
@@ -52,7 +47,7 @@ git config --global user.email wxianxinreg@gmail.com
 git config --global user.name wxianxin
 ########################################################################################
 # input method
-sudo pacman -S fcitx5 fcitx5-gtk ibus-pinyin
+# sudo pacman -S fcitx5 fcitx5-gtk ibus-pinyin
 ################################################################################
 # grub
 # sudo grub-reboot [X]  # reboot to windows from linux
