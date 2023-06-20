@@ -1,7 +1,7 @@
-" .vimrc 20220930
+" .vimrc 20230620
 " .vim/ 20220928
 
-" TODO <leader>
+let mapleader = " "
 
 " vim plugin installation
 " mkdir ~/.vim/pack/foo/start ~/.vim/pack/foo/opt

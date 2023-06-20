@@ -224,7 +224,7 @@ include /etc/sway/config.d/*
 
 ########################################################################################
 # Steven
-output * bg ~/Downloads/5k/715271.jpg fill 
+output * bg ~/Downloads/5k/701910.jpg fill 
 input * accel_profile flat
 input * pointer_accel -0.5
 input 1386:18852:Wacom_HID_49A4_Finger map_to_output eDP-1
@@ -239,8 +239,8 @@ bindsym $mod+m output "DP-7" toggle
 bindsym $mod+t output "eDP-1" transform 270 
 bindsym $mod+Shift+t output "eDP-1" transform 0 
 bindsym $mod+Shift+s resize set width 640px
-bindsym $mod+u border none
-bindsym $mod+i border normal
 default_border none
 default_floating_border none
 font pango:noto Medium 11
+bindsym $mod+ctrl+left mark swap, focus left, swap container with mark swap
+bindsym $mod+ctrl+right mark swap, focus right, swap container with mark swap
