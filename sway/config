@@ -1,7 +1,7 @@
 # Default config for sway
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
-
+#
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
@@ -23,14 +23,11 @@ set $menu wofi --show=drun --lines=5 --prompt="1234"
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/colorful.jpg fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill 
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output DP-1 resolution 5120x2160 position 0,0
-output DP-1 scale 2
-# output DP-1 resolution 1920x1200@120Hz position 0,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -67,7 +64,6 @@ exec swayidle -w \
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    bindsym Ctrl+Alt+t exec $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -224,7 +220,10 @@ include /etc/sway/config.d/*
 
 ########################################################################################
 # Steven
-output * bg ~/Downloads/5k/701910.jpg fill 
+output DP-2 resolution 5120x2160 position 0,0
+output DP-2 scale 2
+output DP-1 resolution 1920x1200@120Hz position 0,1080
+output * bg ~/Downloads/5k/black_jupiter.jpg fill 
 input * accel_profile flat
 input * pointer_accel -0.5
 input 1386:18852:Wacom_HID_49A4_Finger map_to_output eDP-1
