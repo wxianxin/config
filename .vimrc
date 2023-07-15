@@ -45,9 +45,10 @@ filetype plugin indent on
 syntax enable
 
 set foldmethod=indent
-set foldlevel=1
-set foldclose=all
-"let r_syntax_folding = 1
+set foldlevel=0
+" set foldclose=all
+set nofoldenable    " disable folding
+
 
 colorscheme molokai
 let g:rehash256 = 1

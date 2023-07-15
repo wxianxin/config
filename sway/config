@@ -23,7 +23,7 @@ set $menu wofi --show=drun --lines=5 --prompt="1234"
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill 
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -35,10 +35,10 @@ set $menu wofi --show=drun --lines=5 --prompt="1234"
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 360 'swaylock -f -c 880000' \
-         timeout 370 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 008800'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -48,7 +48,7 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-#   input "1133:50504:Logitech_USB_Receiver_Mouse" {
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
 #       dwt enabled
 #       tap enabled
 #       natural_scroll enabled
@@ -220,9 +220,13 @@ include /etc/sway/config.d/*
 
 ########################################################################################
 # Steven
-output DP-2 resolution 5120x2160 position 0,0
-output DP-2 scale 2
-output DP-1 resolution 1920x1200@120Hz position 0,1080
+exec swayidle -w \
+         timeout 360 'swaylock -f -c 880000' \
+         timeout 370 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 008800'
+output eDP-1 position 0,0
+output DP-1 resolution 1920x1200@120Hz
+output DP-2 resolution 1920x1080@240Hz position 0,-1080
 output * bg ~/Downloads/5k/black_jupiter.jpg fill 
 input * accel_profile flat
 input * pointer_accel -0.5
