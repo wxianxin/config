@@ -1,3 +1,4 @@
+sudo lsblk -o name,mountpoint,label,size,uuid
 ########################################################################################
 # nfs
 sudo pacman -S nfs-utils
