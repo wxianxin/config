@@ -22,7 +22,7 @@
 ########################################################################################
 ---
 name: ssserver
-version: "2.1"
+version: "3.1"
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
@@ -64,7 +64,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/New_York
     volumes:
       - /home/coupe/drive/container/transmission_config:/config
       - /home/coupe/drive/downloads:/downloads
@@ -77,7 +77,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/New_York
     devices:
       - /dev/dri:/dev/dri
     volumes:
@@ -108,7 +108,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/New_York
       - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
     volumes:
       - /home/coupe/drive/container/mariadb_config:/config
@@ -123,7 +123,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/New_York
     volumes:
       - /home/coupe/drive/container/nextcloud_config:/config
       - /home/coupe/drive/nextcloud:/data
@@ -131,6 +131,18 @@ services:
       - 443:443
     restart: unless-stopped
 
+  jupyterlab:
+    image: jupyterlab:latest
+    container_name: jupyterlab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /home/coupe/drive/jupyter:/home/jupyter
+    ports:
+      - 8888:8888
+    restart: unless-stopped
 
 networks:
   wireguard-net:

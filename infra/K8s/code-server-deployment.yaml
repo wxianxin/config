@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-server
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      containers:
+      - name: code-server
+        image: lscr.io/linuxserver/code-server:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: my-nfs-storage
+        ports:
+        - containerPort: 8443
+      volumes:
+        - name: my-nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc

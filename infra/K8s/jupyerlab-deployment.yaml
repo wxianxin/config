@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyterlab-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyterlab
+  template:
+    metadata:
+      labels:
+        app: jupyterlab
+    spec:
+      containers:
+      - name: jupyterlab
+        image: jupyterlab
+        imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: /home/jupyter
+            name: my-nfs-storage
+        ports:
+        - containerPort: 8888
+      volumes:
+        - name: my-nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
