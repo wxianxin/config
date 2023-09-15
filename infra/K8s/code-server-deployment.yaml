@@ -23,8 +23,9 @@ spec:
         - name: TZ
           value: "America/New_York"
         volumeMounts:
-          - mountPath: /config
-            name: my-nfs-storage
+          - name: my-nfs-storage
+            mountPath: /config
+            subPath: code-server
         ports:
         - containerPort: 8443
       volumes:

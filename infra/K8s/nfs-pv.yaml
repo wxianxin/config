@@ -4,14 +4,15 @@ metadata:
   name: nfs-pv
 spec:
   capacity:
-    storage: 32Gi
+    storage: 512Gi
   volumeMode: Filesystem
+  storageClassName: nfs
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
   mountOptions:
     - hard
     - nfsvers=4.0
   nfs:
-    path: /home/coupe/drive/container/code-server_config
+    path: /home/coupe/drive/clustervault
     server: 192.168.50.64

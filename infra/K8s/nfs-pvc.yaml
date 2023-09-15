@@ -4,9 +4,10 @@ metadata:
   name: nfs-pvc
 spec:
   volumeMode: Filesystem
+  storageClassName: nfs
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 16Gi
+      storage: 512Gi # this is used when looking for PVbest way to use a single nfs share for all the deployment in a cluster with enough storage, when the clain happens, the pod always claim the entire storage capacity of the PV
 
