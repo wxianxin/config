@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+      - name: nextcloud
+        image: lscr.io/linuxserver/nextcloud:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        volumeMounts:
+          - name: nfs-storage
+            mountPath: /config
+            subPath: nextcloud
+          - name: nextcloud-nfs-storage
+            mountPath: /data
+        ports:
+        - containerPort: 443
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: nextcloud-nfs-storage
+          persistentVolumeClaim:
+            claimName: nextcloud-nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-service
+spec:
+  selector:
+    app: nextcloud
+  ports:
+    - protocol: TCP
+      targetPort: 443
+      port: 443
+      nodePort: 30323
+  type: NodePort

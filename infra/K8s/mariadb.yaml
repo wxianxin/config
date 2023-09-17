@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: lscr.io/linuxserver/mariadb:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        - name: MYSQL_ROOT_PASSWORD
+          value: PLACEHOLDER_MYSQL_ROOT_PASSWORD
+        volumeMounts:
+          - name: nfs-storage
+            mountPath: /config
+            subPath: mariadb
+        ports:
+        - containerPort: 3306
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-service
+spec:
+  selector:
+    app: mariadb
+  ports:
+    - protocol: TCP
+      targetPort: 3306
+      port: 3306
+  type: NodePort
