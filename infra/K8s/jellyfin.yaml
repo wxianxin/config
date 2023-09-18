@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+      - name: jellyfin
+        image: lscr.io/linuxserver/jellyfin:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        volumeMounts:
+          - name: dev-dri
+            mountPath: /dev/dri
+          - name: nfs-storage
+            mountPath: /config
+            subPath: jellyfin
+          - name: downloads-nfs-storage
+            mountPath: /data/media
+        ports:
+        - containerPort: 443
+      volumes:
+        - name: dev-dri
+          hostPath:
+            path: /dev/dri
+            type: Directory
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: downloads-nfs-storage
+          persistentVolumeClaim:
+            claimName: downloads-nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-service
+spec:
+  selector:
+    app: jellyfin
+  ports:
+    - protocol: TCP
+      targetPort: 8096
+      port: 8096
+      nodePort: 30096
+  type: NodePort

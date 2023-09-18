@@ -14,14 +14,28 @@ spec:
     spec:
       containers:
       - name: jupyterlab
-        image: jupyterlab
+        image: jupyterlab:v0.1.0
         imagePullPolicy: Never
         volumeMounts:
           - mountPath: /home/jupyter
-            name: my-nfs-storage
+            name: nfs-storage
         ports:
         - containerPort: 8888
       volumes:
-        - name: my-nfs-storage
+        - name: nfs-storage
           persistentVolumeClaim:
             claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterlab-service
+spec:
+  selector:
+    app: jupyterlab
+  ports:
+    - protocol: TCP
+      targetPort: 8888
+      port: 8888
+      nodePort: 30088
+  type: NodePort
