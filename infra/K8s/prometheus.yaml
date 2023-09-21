@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        volumeMounts:
+          - name: nfs-storage
+            mountPath: /etc/prometheus
+            subPath: prometheus
+        ports:
+        - containerPort: 9090
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: default
+spec:
+  selector:
+    app: prometheus
+  ports:
+    - protocol: TCP
+      targetPort: 9090
+      port: 9090
+      nodePort: 30090
+  type: NodePort

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+  namespace: default
+  labels:
+    app: node-exporter
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        app: node-exporter
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+      - name: node-exporter
+        image: quay.io/prometheus/node-exporter:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        args:
+        - "--path.rootfs=/host"
+        volumeMounts:
+        - name: host-root
+          mountPath: "/host"
+          readOnly: true
+        ports:
+        - containerPort: 9100
+      volumes:
+      - name: host-root
+        hostPath:
+          path: "/"
+          type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-exporter
+  namespace: default
+  labels:
+    app: node-exporter
+spec:
+  selector:
+    app: node-exporter
+  ports:
+    - protocol: TCP
+      name: metrics
+      targetPort: 9100
+      port: 9100
