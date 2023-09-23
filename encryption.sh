@@ -11,3 +11,6 @@ sudo chown -R username:username /dev/mapper/L
 # SSH
 ssh-keygen -t ed25519
 ssh-copy-id -i ~/.ssh/tatu-key-ecdsa user@host
+
+# $type$salt$hashed
+echo -n "your_password" | openssl passwd -6 -stdin -salt "your_salt"
