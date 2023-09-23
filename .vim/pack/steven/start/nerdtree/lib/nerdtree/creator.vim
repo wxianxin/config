@@ -28,7 +28,9 @@ endfunction
 
 " FUNCTION: s:Creator._broadcastInitEvent() {{{1
 function! s:Creator._broadcastInitEvent()
-    silent doautocmd User NERDTreeInit
+    if exists('#User#NERDTreeInit')
+        doautocmd User NERDTreeInit
+    endif
 endfunction
 
 " FUNCTION: s:Creator.BufNamePrefix() {{{1
@@ -170,6 +172,7 @@ function! s:Creator.createMirror()
     let t:NERDTreeBufName = bufferName
     call self._createTreeWin()
     exec 'buffer ' .  bufferName
+    call b:NERDTree.ui.restoreScreenState()
     if !&hidden
         call b:NERDTree.render()
     endif
@@ -179,16 +182,17 @@ endfunction
 " Initialize the NERDTree window.  Open the window, size it properly, set all
 " local options, etc.
 function! s:Creator._createTreeWin()
-    let l:splitLocation = g:NERDTreeWinPos ==# 'left' ? 'topleft ' : 'botright '
+    let l:splitLocation = g:NERDTreeWinPos ==# 'left' || g:NERDTreeWinPos ==# 'top' ? 'topleft ' : 'botright '
+    let l:splitDirection = g:NERDTreeWinPos ==# 'left' || g:NERDTreeWinPos ==# 'right' ? 'vertical' : ''
     let l:splitSize = g:NERDTreeWinSize
 
     if !g:NERDTree.ExistsForTab()
         let t:NERDTreeBufName = self._nextBufferName()
-        silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' new'
+        silent! execute l:splitLocation . l:splitDirection . ' ' . l:splitSize . ' new'
         silent! execute 'edit ' . t:NERDTreeBufName
-        silent! execute 'vertical resize '. l:splitSize
+        silent! execute l:splitDirection . ' resize '. l:splitSize
     else
-        silent! execute l:splitLocation . 'vertical ' . l:splitSize . ' split'
+        silent! execute l:splitLocation . l:splitDirection . ' ' . l:splitSize . ' split'
         silent! execute 'buffer ' . t:NERDTreeBufName
     endif
 
@@ -247,7 +251,7 @@ function! s:Creator._pathForString(str)
 
         "hack to get an absolute path if a relative path is given
         if dir =~# '^\.'
-            let dir = getcwd() . g:NERDTreePath.Slash() . dir
+            let dir = getcwd() . nerdtree#slash() . dir
         endif
 
         "hack to prevent removing slash if dir is the root of the file system.
