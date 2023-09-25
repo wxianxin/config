@@ -21,7 +21,7 @@ spec:
         image: quay.io/prometheus/node-exporter:latest
         env:
         - name: TZ
-          value: "America/New_York"
+          value: "Etc/UTC"
         args:
         - "--path.rootfs=/host"
         volumeMounts:

@@ -21,7 +21,7 @@ spec:
           runAsGroup: 1000
         env:
         - name: TZ
-          value: "America/New_York"
+          value: "Etc/UTC"
         volumeMounts:
           - name: nfs-storage
             mountPath: /var/lib/grafana
