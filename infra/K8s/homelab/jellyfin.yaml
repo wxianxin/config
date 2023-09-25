@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jellyfin-deployment
+  name: jellyfin
+  namespace: homelab
 spec:
   replicas: 1
   selector:
@@ -47,7 +48,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jellyfin-service
+  name: jellyfin
+  namespace: homelab
 spec:
   selector:
     app: jellyfin

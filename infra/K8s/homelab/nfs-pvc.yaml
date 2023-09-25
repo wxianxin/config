@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  namespace: homelab
+spec:
+  volumeMode: Filesystem
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti # this is used when looking for PVbest way to use a single nfs share for all the deployment in a cluster with enough storage, when the clain happens, the pod always claim the entire storage capacity of the PV
+

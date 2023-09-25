@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextcloud-deployment
+  name: nextcloud
+  namespace: homelab
 spec:
   replicas: 1
   selector:
@@ -41,7 +42,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcloud-service
+  name: nextcloud
+  namespace: homelab
 spec:
   selector:
     app: nextcloud

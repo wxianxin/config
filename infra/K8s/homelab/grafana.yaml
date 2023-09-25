@@ -1,34 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prometheus
-  namespace: default
+  name: grafana
+  namespace: homelab
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus
+      app: grafana
   template:
     metadata:
       labels:
-        app: prometheus
+        app: grafana
     spec:
       containers:
-      - name: prometheus
-        image: prom/prometheus:latest
+      - name: grafana
+        image: grafana/grafana:latest
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
         env:
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
         - name: TZ
           value: "America/New_York"
         volumeMounts:
           - name: nfs-storage
-            mountPath: /etc/prometheus
-            subPath: prometheus
+            mountPath: /var/lib/grafana
+            subPath: grafana
         ports:
-        - containerPort: 9090
+        - containerPort: 3000
       volumes:
         - name: nfs-storage
           persistentVolumeClaim:
@@ -37,14 +36,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus
-  namespace: default
+  name: grafana
+  namespace: homelab
 spec:
   selector:
-    app: prometheus
+    app: grafana
   ports:
     - protocol: TCP
-      targetPort: 9090
-      port: 9090
-      nodePort: 30090
+      targetPort: 3000
+      port: 3000
+      nodePort: 30003
   type: NodePort

@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mariadb-deployment
+  name: prometheus
+  namespace: homelab
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mariadb
+      app: prometheus
   template:
     metadata:
       labels:
-        app: mariadb
+        app: prometheus
     spec:
       containers:
-      - name: mariadb
-        image: lscr.io/linuxserver/mariadb:latest
+      - name: prometheus
+        image: prom/prometheus:latest
         env:
         - name: PUID
           value: "1000"
@@ -22,14 +23,12 @@ spec:
           value: "1000"
         - name: TZ
           value: "America/New_York"
-        - name: MYSQL_ROOT_PASSWORD
-          value: PLACEHOLDER_MYSQL_ROOT_PASSWORD
         volumeMounts:
           - name: nfs-storage
-            mountPath: /config
-            subPath: mariadb
+            mountPath: /etc/prometheus
+            subPath: prometheus
         ports:
-        - containerPort: 3306
+        - containerPort: 9090
       volumes:
         - name: nfs-storage
           persistentVolumeClaim:
@@ -38,12 +37,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb-service
+  name: prometheus
+  namespace: homelab
 spec:
   selector:
-    app: mariadb
+    app: prometheus
   ports:
     - protocol: TCP
-      targetPort: 3306
-      port: 3306
+      targetPort: 9090
+      port: 9090
+      nodePort: 30090
   type: NodePort

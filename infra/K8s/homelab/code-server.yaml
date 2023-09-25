@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: code-server-deployment
+  name: code-server
+  namespace: homelab
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: code-server
-        image: lscr.io/linuxserver/code-server:latest
+        image: lscr.io/linuxserver/code-server:4.16.0
         env:
         - name: PUID
           value: "1000"
@@ -36,7 +37,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: code-server-service
+  name: code-server
+  namespace: homelab
 spec:
   selector:
     app: code-server
@@ -45,21 +47,3 @@ spec:
       port: 8443
       nodePort: 30000
   type: NodePort
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: code-server-ingress
-spec:
-  ingressClassName: traefik
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: code-server-service
-            port:
-              number: 6666
-
