@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard-transmission
+  namespace: wireguard-transmission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wireguard-transmission
+  template:
+    metadata:
+      labels:
+        app: wireguard-transmission
+    spec:
+      containers:
+      - name: wireguard
+        image: lscr.io/linuxserver/wireguard:latest
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/New_York"
+        volumeMounts:
+          - name: nfs-storage
+            mountPath: /config
+            subPath: wireguard
+        ports:
+          - containerPort: 9091
+            protocol: TCP
+          - containerPort: 51820
+            protocol: UDP
+
+      - name: transmission
+        image: lscr.io/linuxserver/transmission:latest
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - name: nfs-storage
+            mountPath: /config
+            subPath: transmission
+          - name: downloads-nfs-storage
+            mountPath: /downloads
+
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: downloads-nfs-storage
+          persistentVolumeClaim:
+            claimName: downloads-nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wireguard-transmission
+  namespace: wireguard-transmission
+spec:
+  selector:
+    app: wireguard-transmission
+  ports:
+    - name: transmission
+      protocol: TCP
+      targetPort: 9091
+      port: 9091
+      nodePort: 30091
+    - name: wireguard
+      protocol: UDP
+      targetPort: 51820
+      port: 51820
+  type: NodePort
