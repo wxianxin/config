@@ -13,4 +13,5 @@ ssh-keygen -t ed25519
 ssh-copy-id -i ~/.ssh/tatu-key-ecdsa user@host
 
 # $type$salt$hashed
+openssl passwd -1 -salt xxxxxxxx password
 echo -n "your_password" | openssl passwd -6 -stdin -salt "your_salt"
