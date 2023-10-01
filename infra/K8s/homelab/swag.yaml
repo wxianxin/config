@@ -1,36 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: code-server
+  name: swag
   namespace: homelab
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: code-server
+      app: swag
   template:
     metadata:
       labels:
-        app: code-server
+        app: swag
     spec:
       containers:
-      - name: code-server
-        image: lscr.io/linuxserver/code-server:4.16.1
+      - name: swag
+        image: lscr.io/linuxserver/swag:latest
         env:
         - name: PUID
           value: "1000"
         - name: PGID
           value: "1000"
         - name: TZ
-          value: "America/New_York"
-        - name: SUDO_PASSWORD_HASH
-          value: $6$cyber$/8YWLe2rdjv1T0.SlAUYOygBavRRZFj3YPnIZgtOTUBMMa5RUqYcNw2enBty8krqiQ3CxeFn8mreiSjkzvr39.
+          value: "Etc/UTC"
+        - name: URL
+          value: mantide.ddns.net
+        - name: VALIDATION
+          value: "http"
         volumeMounts:
           - name: my-nfs-storage
             mountPath: /config
-            subPath: code-server
+            subPath: swag
         ports:
-        - containerPort: 8443
+        - containerPort: 443
       volumes:
         - name: my-nfs-storage
           persistentVolumeClaim:
@@ -39,13 +41,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: code-server
+  name: swag
   namespace: homelab
 spec:
   selector:
-    app: code-server
+    app: swag
   ports:
     - protocol: TCP
-      port: 8443
-      nodePort: 30000
+      port: 443
+      nodePort: 30443
   type: NodePort
