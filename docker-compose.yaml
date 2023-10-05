@@ -154,6 +154,7 @@ networks:
         - subnet: 172.20.0.0/24
 
 ---
+# wordpress server
 version: "2.1"
 services:
   mariadb:
