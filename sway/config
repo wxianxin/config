@@ -224,9 +224,11 @@ exec swayidle -w \
          timeout 360 'swaylock -f -c 880000' \
          timeout 370 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 008800'
-output eDP-1 position 0,0
+output eDP-1 position 2560,0
 output DP-1 resolution 1920x1200@120Hz
-output DP-2 resolution 1920x1080@240Hz position 0,-1080
+# output DP-2 resolution 1920x1080@240Hz position 0,0
+output DP-2 resolution 5120x2160@59.999Hz position 0,0
+output DP-2 scale 2
 output * bg ~/Downloads/5k/black_jupiter.jpg fill 
 input * accel_profile flat
 input * pointer_accel -0.5

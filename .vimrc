@@ -14,7 +14,7 @@ let mapleader = " "
 
 " plugin list:
 "~/.vim/pack/foo/start
-"   ale
+"   ale # python depends on `flake8`
 "   black
 "   nerdtree
 "   vim-airline
