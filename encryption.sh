@@ -1,3 +1,9 @@
+# ssh
+
+ssh-keygen -t ed25519
+ssh-copy-id -i ~/.ssh/key.pub user@host
+vim /etc/ssh/sshd_config
+
 # encrypt
 sudo cryptsetup luksFormat --type luks1 /dev/nvme0n1p1 
 
