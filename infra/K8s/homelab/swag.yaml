@@ -1,3 +1,7 @@
+# make sure to set up DNS record on the DNS provider side properly
+# get DNS server token and set in the dns config
+# update nginx proxy conf
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,14 +29,19 @@ spec:
           value: "Etc/UTC"
         - name: URL
           value: mantide.ddns.net
+        - name: SUBDOMAINS
+          value: "wildcard"
         - name: VALIDATION
-          value: "http"
+          value: "dns"
+        - name: DNSPLUGIN
+          value: "google-domains"
         volumeMounts:
           - name: my-nfs-storage
             mountPath: /config
             subPath: swag
         ports:
         - containerPort: 443
+        - containerPort: 80
       volumes:
         - name: my-nfs-storage
           persistentVolumeClaim:
@@ -47,7 +56,14 @@ spec:
   selector:
     app: swag
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
+      targetPort: 80
+      port: 80
+      nodePort: 30080
+    - name: https
+      protocol: TCP
+      targetPort: 443
       port: 443
       nodePort: 30443
   type: NodePort
