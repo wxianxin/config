@@ -1,0 +1,75 @@
+# echo "net.ipv4.conf.all.src_valid_mark = 1" | sudo tee -a /etc/sysctl.conf
+# sudo sysctl -p
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard-server
+  namespace: homelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wireguard-server
+  template:
+    metadata:
+      labels:
+        app: wireguard-server
+    spec:
+      #       securityContext:
+      #         sysctls:
+      #         - name: net.ipv4.conf.all.src_valid_mark
+      #           value: "1"
+      containers:
+      - name: wireguard-server
+        image: lscr.io/linuxserver/wireguard:latest
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Etc/UTC"
+        - name: SERVERURL
+          value: aionk.com
+        - name: SERVERPORT
+          value: "51820"
+        - name: PEERS
+          value: "ss,kk,yidi,xy"
+        - name: PEERDNS
+          value: "auto"
+        - name: INTERNAL_SUBNET
+          value: "10.13.13.0"
+        - name: ALLOWEDIPS
+          value: "0.0.0.0/0"
+        - name: LOG_CONFS
+          value: "true"
+        volumeMounts:
+          - name: my-nfs-storage
+            mountPath: /config
+            subPath: wireguard-server
+        ports:
+        - containerPort: 51820
+          protocol: UDP
+      volumes:
+        - name: my-nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wireguard-server
+  namespace: homelab
+spec:
+  selector:
+    app: wireguard-server
+  ports:
+    - protocol: UDP
+      targetPort: 51820
+      port: 51820
+      nodePort: 31820
+  type: NodePort
