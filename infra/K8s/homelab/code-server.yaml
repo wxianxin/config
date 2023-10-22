@@ -15,9 +15,33 @@ spec:
       labels:
         app: code-server
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: type # label name
+                operator: In
+                values:
+                - x86_p
+          - weight: 50
+            preference:
+              matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - x86_e
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - arm64
       containers:
       - name: code-server
-        image: lscr.io/linuxserver/code-server:4.16.1
+        image: lscr.io/linuxserver/code-server:latest
         env:
         - name: PUID
           value: "1000"
@@ -25,6 +49,8 @@ spec:
           value: "1000"
         - name: TZ
           value: "America/New_York"
+        - name: PASSWORD
+          value: "gaza"
         - name: SUDO_PASSWORD_HASH
           value: $6$cyber$/8YWLe2rdjv1T0.SlAUYOygBavRRZFj3YPnIZgtOTUBMMa5RUqYcNw2enBty8krqiQ3CxeFn8mreiSjkzvr39.
         volumeMounts:
