@@ -81,9 +81,15 @@ iscsiadm --mode node --targetname iqn.2022-11.stevenwang.trade:drive --portal 19
 iscsiadm --mode node --targetname iqn.2022-11.stevenwang.trade:drive --portal 192.168.0.0 -u
 ########################################################################################
 # mariaDB/MySQL
+CREATE DATABASE database_name;
+DROP DATABASE database_name;
+
+SELECT User, Host FROM mysql.user;  # show all users;
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
 CREATE USER 'username'@'192.168.0.0/255.255.0.0' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost' IDENTIFIED BY 'password';
 REVOKE type_of_permission ON database_name.table_name FROM 'username'@'host';
 SHOW GRANTS FOR 'username'@'host';
+FLUSH PRIVILEGES;
 DROP USER 'username'@'localhost';
+mysqldump -u root -p xxx_db > xxx.sql_dump
