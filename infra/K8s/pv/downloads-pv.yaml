@@ -2,6 +2,8 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: downloads-nfs-pv
+  labels:
+    type: downloads
 spec:
   capacity:
     storage: 1Ti
@@ -15,4 +17,23 @@ spec:
     - nfsvers=4.0
   nfs:
     path: /home/coupe/drive/downloads
-    server: 192.168.50.64
+    server: 192.168.31.12
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads-nfs-pvc
+  namespace: homelab
+spec:
+  volumeMode: Filesystem
+  storageClassName: nfs
+  selector:
+    matchLabels:
+      type: downloads
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+
