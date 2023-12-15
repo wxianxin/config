@@ -29,7 +29,7 @@ spec:
           - name: nfs-storage
             mountPath: /config
             subPath: jellyfin
-          - name: downloads-nfs-storage
+          - name: smb-downloads
             mountPath: /data/media
         ports:
         - containerPort: 443
@@ -41,9 +41,10 @@ spec:
         - name: nfs-storage
           persistentVolumeClaim:
             claimName: nfs-pvc
-        - name: downloads-nfs-storage
+        - name: smb-downloads
           persistentVolumeClaim:
-            claimName: downloads-nfs-pvc
+            claimName: smb-downloads-pvc
+            readOnly: true
 ---
 apiVersion: v1
 kind: Service
