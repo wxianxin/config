@@ -5,6 +5,8 @@ sudo pacman -S nfs-utils
 sudo systemctl stop nfs-server.service      # v3
 sudo systemctl start nfs4-server.service    # v4
 echo "/nfs/exports/myshare 192.168.122.0/24(rw,sync)" > /etc/exports
+# for k8s cluster access: 
+echo "/nfs/exports/nfs_share 192.168.122.0/24(rw,sync,anonuid=1000,anongid=1000)" > /etc/export
 # rw: enable read and write
 # sync: confirm write operation completed before server responds back to client, better data integrity, slightly worse performance.
 

@@ -34,7 +34,10 @@ spec:
         - name: TZ
           value: "Etc/UTC"
         - name: SERVERURL
-          value: aionk.com
+          valueFrom:
+            configMapKeyRef:
+              name: homelab-cm
+              key: domain
         - name: SERVERPORT
           value: "51820"
         - name: PEERS

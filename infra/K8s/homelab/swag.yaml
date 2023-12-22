@@ -28,7 +28,10 @@ spec:
         - name: TZ
           value: "Etc/UTC"
         - name: URL
-          value: mantide.ddns.net
+          valueFrom:
+            configMapKeyRef:
+              name: homelab-cm
+              key: domain
         - name: SUBDOMAINS
           value: "wildcard"
         - name: VALIDATION

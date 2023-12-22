@@ -11,3 +11,6 @@ vim userconf.txt
 
 ### to get the password hash
 echo 'mypassword' | openssl passwd -6 -stdin
+
+# disable swap
+sudo systemctl disable dphys-swapfile.service

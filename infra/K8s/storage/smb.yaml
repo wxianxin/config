@@ -1,7 +1,9 @@
+# NOTE install smb.csi.k8s.io first !!!
 apiVersion: v1
 kind: Secret
 metadata:
   name: smb-secret
+type: Opaque
 stringData:
   username: "guest"
   password: ""
@@ -13,7 +15,7 @@ metadata:
   name: smb
 provisioner: smb.csi.k8s.io
 parameters:
-  source: //192.168.31.1/Seagate_BUP_BK(08e5)/drive
+  source: //192.168.8.1/Seagate_BUP_BK(08e5)/drive
   # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
   # with PV name under source
   #   csi.storage.k8s.io/provisioner-secret-name: smb-secret
