@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homelab-cm
+  namespace: homelab
+  labels:
+    app: my-application
+    environment: production
+data:
+  key1: value1
+  file_name: |
+    content
+  domain: x.com
+
+

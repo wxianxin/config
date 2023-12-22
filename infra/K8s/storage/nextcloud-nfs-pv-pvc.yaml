@@ -17,7 +17,7 @@ spec:
     - nfsvers=4.0
   nfs:
     path: /home/coupe/drive/nextcloud
-    server: 192.168.31.12
+    server: 192.168.8.8
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
