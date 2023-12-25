@@ -10,7 +10,7 @@ data:
   key1: value1
   file_name: |
     content
-  domain: x.com
+  domain: aionk.com
   prometheus.yml: |
     global:
       scrape_interval: 15s
