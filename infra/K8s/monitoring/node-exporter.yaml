@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-exporter
-  namespace: homelab
+  namespace: monitoring
   labels:
     app: node-exporter
 spec:
@@ -40,7 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: node-exporter
-  namespace: homelab
+  namespace: monitoring
   labels:
     app: node-exporter
 spec:

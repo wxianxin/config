@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: homelab-cm
-  namespace: homelab
+  name: monitoring-cm
+  namespace: monitoring
   labels:
     app: my-application
     environment: production
@@ -10,7 +10,6 @@ data:
   key1: value1
   file_name: |
     content
-  domain: x.com
   prometheus.yml: |
     global:
       scrape_interval: 15s
@@ -29,15 +28,15 @@ data:
         # Override the global default and scrape targets from this job every 10 seconds.
         scrape_interval: 10s
         static_configs:
-          - targets: ['prometheus.homelab.svc.cluster.local:9090']
+          - targets: ['prometheus.monitoring.svc.cluster.local:9090']
     
       - job_name: 'node-exporter'
         static_configs:
-          - targets: ['node-exporter.homelab.svc.cluster.local:9100']
+          - targets: ['node-exporter.monitoring.svc.cluster.local:9100']
     
       # Example job for cadvisor
       - job_name: 'cadvisor'
         static_configs:
-          - targets: ['cadvisor.homelab.svc.cluster.local:8080']
+          - targets: ['cadvisor.monitoring.svc.cluster.local:8080']
     
     

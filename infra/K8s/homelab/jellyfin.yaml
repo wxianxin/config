@@ -60,3 +60,17 @@ spec:
       port: 8096
       nodePort: 30096
   type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smb-downloads-pvc
+  namespace: homelab
+spec:
+  volumeMode: Filesystem
+  storageClassName: smb
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Ti

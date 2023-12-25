@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus
-  namespace: homelab
+  namespace: monitoring
 spec:
   replicas: 1
   selector:
@@ -24,21 +24,21 @@ spec:
         - name: TZ
           value: "Etc/UTC"
         volumeMounts:
-          - name: nfs-storage
-            mountPath: /etc/prometheus
-            subPath: prometheus
+          - name: monitoring-cm
+            mountPath: /etc/prometheus/prometheus.yml
+            subPath: prometheus.yml
         ports:
         - containerPort: 9090
       volumes:
-        - name: nfs-storage
-          persistentVolumeClaim:
-            claimName: nfs-pvc
+        - name: monitoring-cm
+          configMap:
+            name: monitoring-cm
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: prometheus
-  namespace: homelab
+  namespace: monitoring
 spec:
   selector:
     app: prometheus

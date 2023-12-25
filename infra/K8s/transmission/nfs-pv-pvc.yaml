@@ -11,12 +11,12 @@ spec:
   storageClassName: nfs
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   mountOptions:
     - hard
     - nfsvers=4.0
   nfs:
-    path: /home/coupe/drive/clustervault
+    path: /home/coupe/nfs_share/clustervault
     server: 192.168.8.8
 ---
 apiVersion: v1

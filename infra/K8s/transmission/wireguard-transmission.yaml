@@ -50,16 +50,16 @@ spec:
           - name: nfs-storage
             mountPath: /config
             subPath: transmission
-          - name: downloads-nfs-storage
+          - name: smb-downloads
             mountPath: /downloads
 
       volumes:
         - name: nfs-storage
           persistentVolumeClaim:
             claimName: nfs-pvc
-        - name: downloads-nfs-storage
+        - name: smb-downloads
           persistentVolumeClaim:
-            claimName: downloads-nfs-pvc
+            claimName: smb-downloads-pvc
 ---
 apiVersion: v1
 kind: Service
