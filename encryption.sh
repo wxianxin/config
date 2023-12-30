@@ -3,6 +3,10 @@ ssh-keygen -t ed25519
 ssh-copy-id -i ~/.ssh/key.pub user@host
 vim /etc/ssh/sshd_config
 
+# add key to ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+
 # encrypt
 sudo cryptsetup luksFormat --type luks1 /dev/nvme0n1p1 
 

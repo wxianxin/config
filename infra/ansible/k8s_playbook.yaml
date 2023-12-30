@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: prepare environment
+      apt:
+        name:
+          - git
+          - vim
+        state: present
+
+    - name: disable swap on raspberry pi
+      command: systemctl disable dphys-swapfile.service
+
+    - name: check ipv4 src_valid_mark
+      command: cat /proc/sys/net/ipv4/conf/all/src_valid_mark
+
+    # cat "net.ipv4.conf.all.src_valid_mark=1" >> /etc/sysctl.conf
+    - name: set ipv4 src_valid_mark
+      lineinfile:
+        path: /etc/sysctl.conf
+        line: net.ipv4.conf.all.src_valid_mark=1
+        create: no
+
+- hosts: file_server
+  become: yes
+  tasks:
+    - name: install nfs server on debian
+      command: apt install nfs-kernel-server
