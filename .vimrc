@@ -14,7 +14,7 @@ let mapleader = " "
 
 " plugin list:
 "~/.vim/pack/foo/start
-"   ale # python depends on `flake8`
+"   ale
 "   black
 "   nerdtree
 "   vim-airline
@@ -103,6 +103,8 @@ let g:ale_sign_error = '❌'
 hi ALEWarningSign ctermfg=11 ctermbg=235 guifg=#ED6237 guibg=#232526
 " hi link ALEErrorSign Error
 hi ALEErrorSign ctermfg=9 ctermbg=235
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 " NERDTree

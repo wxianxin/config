@@ -19,6 +19,9 @@ cp ~/config/.vimrc ~
 cp ~/config/.toprc ~
 
 ################################################################################
+# vim
+git clone https://github.com/github/copilot.vim ~/.vim/pack/steven/start/copilot.vim
+################################################################################
 # python setup
 mkdir ~/.venv
 python -m venv ~/.venv/p
