@@ -2,6 +2,7 @@
 # sway
 
 sudo pacman -S sway swaybg swayidle swaylock foot # wofi
+# wofi has too much dependency
 
 # screenshot
 sudo pacman -S grim slurp
@@ -25,10 +26,5 @@ cat >> ~/.bashrc << "EOF"
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
       exec sway
 fi
-
-if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
-    export MOZ_ENABLE_WAYLAND=1
-fi
-
 EOF
 

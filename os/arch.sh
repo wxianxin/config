@@ -2,7 +2,7 @@
 
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
-pacman -S openssh
+pacman -S openssh vi vim iwd
 
 echo archname > /etc/hostname
 pacman -S grub efibootmgr # os-prober
@@ -20,15 +20,8 @@ useradd -m -s /bin/bash my_user
 pacman -S sudo
 # enable sudo for the user
 usermod -aG wheel my_user
-
-########################################################################################
-# gnome
-pacman -S gdm gnome-console gnome-disk-utility gnome-system-monitor gnome-text-editor nautilus gvfs-smb gnome-control-center
-# gvfs-smb: smb for nautilus
-systemctl enable gdm.service
-########################################################################################
-pacman -S networkmanager
-systemctl enable NetworkManager.service
+visudo
+# enable wheel group
 
 pacman -S bluez bluez-utils
 systemctl enable bluetooth.service
@@ -62,3 +55,12 @@ sudo pacman -S sof-firmware
 # set "ControllerMode = bredr" in /etc/bluetooth/main.conf
 sudo pacman -S pipewire-pulse
 ########################################################################################
+########################################################################################
+# gnome
+pacman -S gdm gnome-console gnome-disk-utility gnome-system-monitor gnome-text-editor nautilus gvfs-smb gnome-control-center
+# gvfs-smb: smb for nautilus
+systemctl enable gdm.service
+########################################################################################
+pacman -S networkmanager
+systemctl enable NetworkManager.service
+
