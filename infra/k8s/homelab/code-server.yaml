@@ -15,35 +15,36 @@ spec:
       labels:
         app: code-server
     spec:
-      nodeSelector:
-        type: x86_p
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
-              - key: type # label name
-                operator: In
-                values:
-                - x86_p
-          - weight: 50
-            preference:
-              matchExpressions:
-              - key: type
-                operator: In
-                values:
-                - x86_e
-          - weight: 10
-            preference:
-              matchExpressions:
-              - key: type
-                operator: In
-                values:
-                - arm64
+      # nodeSelector:
+      #   type: x86_p
+      # affinity:
+      #   nodeAffinity:
+      #     preferredDuringSchedulingIgnoredDuringExecution:
+      #     - weight: 100
+      #       preference:
+      #         matchExpressions:
+      #         - key: type # label name
+      #           operator: In
+      #           values:
+      #           - x86_p
+      #     - weight: 50
+      #       preference:
+      #         matchExpressions:
+      #         - key: type
+      #           operator: In
+      #           values:
+      #           - x86_e
+      #     - weight: 10
+      #       preference:
+      #         matchExpressions:
+      #         - key: type
+      #           operator: In
+      #           values:
+      #           - arm64
       containers:
       - name: code-server
-        image: lscr.io/linuxserver/code-server:latest
+        # image: lscr.io/linuxserver/code-server:latest
+        image: 192.168.8.9:5000/dev:latest
         env:
         - name: PUID
           value: "1000"
