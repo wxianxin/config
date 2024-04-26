@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: homelab
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        env:
+          {{- range .Values.env }}
+          - name: {{ .name }}
+            value: "{{ .value }}"
+          {{- end }}
+        volumeMounts:
+          - name: {{ .Values.volumes.name }}
+            mountPath: {{ .Values.volumes.mountPath }}
+            subPath: {{ .Values.volumes.subPath }}
+        ports:
+        - containerPort: 27017
+      volumes:
+        - name: {{ .Values.volumes.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumes.claimName }}

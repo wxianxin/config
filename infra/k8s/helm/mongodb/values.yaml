@@ -1,0 +1,39 @@
+# Default values for mongodb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: mongodb
+# For helm, it's best not to hardcode namespace in the deployment.yaml
+  # namespace: homelab
+
+replicaCount: 1
+
+image:
+  repository: mongo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+  - name: TZ
+    value: "America/New_York"
+  - name: MONGO_INITDB_ROOT_USERNAME
+    value: rootu
+  - name: MONGO_INITDB_ROOT_PASSWORD
+    value: rootp
+
+volumes:
+  name: nfs-storage
+  claimName: nfs-pvc
+  mountPath: "/data"
+  subPath: "mongodb"
+
+service:
+  type: ClusterIP
+  port: 27017
+  nodePort: 30017
+
