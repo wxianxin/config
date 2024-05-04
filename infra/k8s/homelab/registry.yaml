@@ -1,0 +1,39 @@
+# doesn't work, as we no SSL setup
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  namespace: homelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: registry:latest
+        ports:
+        - containerPort: 5000
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+  namespace: homelab
+spec:
+  selector:
+    app: registry
+  ports:
+    - protocol: TCP
+      port: 5000
+      nodePort: 30005
+  type: NodePort
