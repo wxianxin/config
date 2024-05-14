@@ -44,7 +44,7 @@ sudo systemctl enable systemd-resolved.service
 
 ########################################################################################
 # pipewire
-pacman -S pipewire
+sudo pacman -S pipewire
 systemctl --user enable pipewire.service
 systemctl --user start pipewire.service
 
