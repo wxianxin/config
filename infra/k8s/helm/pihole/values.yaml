@@ -1,0 +1,41 @@
+---
+dnsmasq:
+  customDnsEntries:
+    - address=/gafana/192.168.8.8
+ 
+  customCnameEntries:
+    - cname=foo.nas,nas
+    - cname=foo.grafana,grafana
+
+persistentVolumeClaim:
+  enabled: true
+
+serviceWeb:
+  # loadBalancerIP: 192.168.8.9
+  # annotations:
+  #   metallb.universe.tf/allow-shared-ip: pihole-svc
+  # type: LoadBalancer
+  type: NodePort
+  http:
+    port: 888
+    nodePort: "888"
+
+serviceDns:
+  # loadBalancerIP: 192.168.8.9
+  # annotations:
+  #   metallb.universe.tf/allow-shared-ip: pihole-svc
+  # type: LoadBalancer
+  mixedService: true
+  type: NodePort
+  port: 5353
+  nodePort: 53
+
+resources:
+  limits:
+    cpu: 400m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+adminPassword: admin
+
