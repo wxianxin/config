@@ -1,14 +1,10 @@
 ---
 dnsmasq:
   customDnsEntries:
-    - address=/gafana/192.168.8.8
+    - address=/k.com/192.168.8.8
  
   customCnameEntries:
-    - cname=foo.nas,nas
-    - cname=foo.grafana,grafana
-
-persistentVolumeClaim:
-  enabled: true
+    - cname=foo.kk.com,kk.com
 
 serviceWeb:
   # loadBalancerIP: 192.168.8.9
@@ -29,6 +25,11 @@ serviceDns:
   type: NodePort
   port: 5353
   nodePort: 53
+
+persistentVolumeClaim:
+  enabled: true
+  existingClaim: nfs-pvc
+  subPath: pihole
 
 resources:
   limits:
