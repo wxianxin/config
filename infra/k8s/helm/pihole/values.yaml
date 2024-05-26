@@ -1,7 +1,7 @@
 ---
 dnsmasq:
   customDnsEntries:
-    - address=/k.com/192.168.8.8
+    - address=/kk.com/192.168.8.8
  
   customCnameEntries:
     - cname=foo.kk.com,kk.com
@@ -31,12 +31,12 @@ persistentVolumeClaim:
   existingClaim: nfs-pvc
   subPath: pihole
 
-resources:
-  limits:
-    cpu: 400m
-    memory: 512Mi
-  requests:
-    cpu: 200m
-    memory: 256Mi
+    # resources:
+    #   limits:
+    #     cpu: 400m
+    #     memory: 512Mi
+    #   requests:
+    #     cpu: 200m
+    #     memory: 256Mi
 adminPassword: admin
 

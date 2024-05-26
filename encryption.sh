@@ -20,3 +20,12 @@ sudo chown -R username:username /dev/mapper/L
 # $type$salt$hashed
 openssl passwd -1 -salt xxxxxxxx password
 echo -n "your_password" | openssl passwd -6 -stdin -salt "your_salt"
+
+# compress and encrypt
+tar -czvf folder_name.tar.gz /path/to/folder_name
+gpg -c folder_name.tar.gz   # -c specifies symmetric encryption
+rm folder_name.tar.gz
+# decrypt and uncompress
+gpg folder_name.tar.gz.gpg
+tar -xzvf folder_name.tar.gz
+

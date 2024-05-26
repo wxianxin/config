@@ -1,4 +1,8 @@
 # NOTE install smb.csi.k8s.io first !!!
+# Install via helm chats:
+## helm repo add csi-driver-smb https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+## helm install csi-driver-smb csi-driver-smb/csi-driver-smb --namespace kube-system --version v1.14.0
+
 apiVersion: v1
 kind: Secret
 metadata:
@@ -15,7 +19,7 @@ metadata:
   name: smb
 provisioner: smb.csi.k8s.io
 parameters:
-  source: //192.168.8.1/Realtek_RTL9210B-CG(c4da)/drive
+  source: //192.168.8.1/Realtek_RTL9210B-CG(c4da)/drive/smb_clustervault
   # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
   # with PV name under source
   #   csi.storage.k8s.io/provisioner-secret-name: smb-secret
@@ -29,3 +33,18 @@ mountOptions:
   - file_mode=0777
   - uid=1001
   - gid=1001
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smb-pvc
+  namespace: homelab
+spec:
+  volumeMode: Filesystem
+  storageClassName: smb
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 512Gi # this is used when looking for PVbest way to use a single nfs share for all the deployment in a cluster with enough storage, when the clain happens, the pod always claim the entire storage capacity of the PV
