@@ -1,0 +1,51 @@
+# Default values for mongodb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: influxdb
+# For helm, it's best not to hardcode namespace in the deployment.yaml
+  # namespace: homelab
+
+replicaCount: 1
+
+image:
+  repository: influxdb
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+    # - name: TZ
+    #   value: "America/New_York"
+  - name: DOCKER_INFLUXDB_INIT_MODE
+    value: setup
+  - name: DOCKER_INFLUXDB_INIT_USERNAME
+    value: influxu
+  - name: DOCKER_INFLUXDB_INIT_PASSWORD
+    value: influxp
+  - name: DOCKER_INFLUXDB_INIT_ORG
+    value: RocketStar
+  - name: DOCKER_INFLUXDB_INIT_BUCKET
+    value: rs_bucket
+  - name: DOCKER_INFLUXDB_INIT_RETENTION
+    value: 0 # 0 means infinite; doesn't delete data
+
+volumes:
+  - name: nfs-storage
+    claimName: nfs-pvc
+    mountPath: "/etc/influxdb2"
+    subPath: "influxdb-config"
+  - name: influx-storage
+    claimName: nfs-pvc
+    mountPath: "/var/lib/influxdb2"
+    subPath: "influxdb-data"
+
+service:
+  type: ClusterIP
+  port: 8086
+  nodePort: 8086
+
