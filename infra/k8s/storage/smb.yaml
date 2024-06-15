@@ -19,7 +19,7 @@ metadata:
   name: smb
 provisioner: smb.csi.k8s.io
 parameters:
-  source: //192.168.8.1/Realtek_RTL9210B-CG(c4da)/drive/smb_clustervault
+  source: //192.168.8.1/Seagate_BUP_BK(08E5)/drive
   # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
   # with PV name under source
   #   csi.storage.k8s.io/provisioner-secret-name: smb-secret

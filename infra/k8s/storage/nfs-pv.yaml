@@ -16,8 +16,8 @@ spec:
     - hard
     - nfsvers=4.0
   nfs:
-    path: /home/coupe/nfs_share/clustervault
-    server: 192.168.8.8
+    path: /mnt/vault/clustervault
+    server: 192.168.8.99
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
