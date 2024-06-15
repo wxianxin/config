@@ -30,8 +30,6 @@ spec:
         ports:
         - containerPort: {{ .Values.service.port }}
       volumes:
-        {{- range .Values.volumes }}
-        - name: {{ .name }}
+        - name: {{ (index .Values.volumes 0).name }}
           persistentVolumeClaim:
-            claimName: {{ .claimName }}
-        {{- end }}
+            claimName: {{ (index .Values.volumes 0).claimName }}

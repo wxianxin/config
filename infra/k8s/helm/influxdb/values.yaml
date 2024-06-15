@@ -4,7 +4,7 @@
 
 name: influxdb
 # For helm, it's best not to hardcode namespace in the deployment.yaml
-  # namespace: homelab
+namespace: homelab
 
 replicaCount: 1
 
@@ -24,9 +24,9 @@ env:
   - name: DOCKER_INFLUXDB_INIT_MODE
     value: setup
   - name: DOCKER_INFLUXDB_INIT_USERNAME
-    value: influxu
+    value: influxrootu
   - name: DOCKER_INFLUXDB_INIT_PASSWORD
-    value: influxp
+    value: influxrootp
   - name: DOCKER_INFLUXDB_INIT_ORG
     value: RocketStar
   - name: DOCKER_INFLUXDB_INIT_BUCKET
@@ -39,7 +39,7 @@ volumes:
     claimName: nfs-pvc
     mountPath: "/etc/influxdb2"
     subPath: "influxdb-config"
-  - name: influx-storage
+  - name: nfs-storage
     claimName: nfs-pvc
     mountPath: "/var/lib/influxdb2"
     subPath: "influxdb-data"
