@@ -1,0 +1,37 @@
+# Default values for mongodb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: registry
+# For helm, it's best not to hardcode namespace in the deployment.yaml
+namespace: private-registry
+
+replicaCount: 1
+
+image:
+  repository: registry
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+env:
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+    # - name: TZ
+    #   value: "America/New_York"
+
+volumes:
+  - name: nfs-storage
+    claimName: nfs-pvc
+    mountPath: "/var/lib/registry"
+    subPath: "registry"
+
+
+service:
+  type: ClusterIP
+  port: 5000
+  targetPort: 5000
+  nodePort: 5000
+
