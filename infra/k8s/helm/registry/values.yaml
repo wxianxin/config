@@ -4,7 +4,7 @@
 
 name: registry
 # For helm, it's best not to hardcode namespace in the deployment.yaml
-namespace: private-registry
+namespace: homelab
 
 replicaCount: 1
 
