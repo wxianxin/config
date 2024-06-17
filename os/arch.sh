@@ -64,3 +64,6 @@ systemctl enable gdm.service
 pacman -S networkmanager
 systemctl enable NetworkManager.service
 
+########################################################################################
+# screen share
+sudo pacman -S xdg-desktop-portal-wlr xdg-desktop-portal
