@@ -1,6 +1,7 @@
 # make sure to set up DNS record on the DNS provider side properly
 # get DNS server token and set in the dns config
 # update nginx proxy conf
+# can use public DNS server for LAN IP addresses, as long as internet is available
 
 apiVersion: apps/v1
 kind: Deployment
