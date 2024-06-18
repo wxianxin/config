@@ -16,7 +16,7 @@ LABEL maintainer="s"
 # Install JupyterLab and numpy
 # RUN pip install --no-cache-dir jupyterlab numpy pandas matplotlib
 RUN <<EOF
-apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+apt-get update && apt-get install -y python3 python3-pip pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
 EOF
 
