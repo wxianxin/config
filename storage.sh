@@ -95,3 +95,8 @@ SHOW GRANTS FOR 'username'@'host';
 FLUSH PRIVILEGES;
 DROP USER 'username'@'localhost';
 mysqldump -u root -p xxx_db > xxx.sql_dump
+########################################################################################
+# ramdisk
+sudo mount tmpfs $HOME/tmpfs -t tmpfs -o size=4G
+# or use shared memory that come with Linux, which may use swap. The size of /dev/shm is typically half of the available RAM
+/dev/shm/
