@@ -41,7 +41,7 @@ spec:
         - name: SERVERPORT
           value: "51820"
         - name: PEERS
-          value: "ss,kk,yidi,xy,cw1,cw2,cw3"
+          value: "ss"
         - name: PEERDNS
           value: "auto"
         - name: INTERNAL_SUBNET

@@ -44,7 +44,10 @@ spec:
       containers:
       - name: code-server
         # image: lscr.io/linuxserver/code-server:latest
-        image: 192.168.8.9:5000/code-server-s:latest
+        # image: 192.168.8.9:5000/code-server-s:latest
+        # imagePullPolicy: Never
+        image: 192.168.8.8:5000/code-server:20240616
+        imagePullPolicy: IfNotPresent
         env:
         - name: PUID
           value: "1000"
@@ -78,5 +81,28 @@ spec:
   ports:
     - protocol: TCP
       port: 8443
-      nodePort: 30000
+      nodePort: 8443
   type: NodePort
+    # ---
+    # apiVersion: networking.k8s.io/v1
+    # kind: Ingress
+    # metadata:
+    #   name: code-server
+    #   namespace: homelab
+    # spec:
+    #   rules:
+    #   - host: aionk.duckdns.org
+    #     http: # note this is the 2nd step of direct traffic to internal service, not to confuse with the 1st step of https that you put in your browser
+    #       paths:
+    #       - path: /code-server
+    #         pathType: Prefix
+    #         backend:  # internal target
+    #           service:
+    #             name: code-server
+    #             port:
+    #               number: 8443
+    #   tls:
+    #   - hosts:
+    #     - aionk.duckdns.org
+    #     secretName: example-local-tls
+
